@@ -15,7 +15,7 @@ public class MainView extends JFrame {
 	public MainView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1250, 800);
-		setTitle("综合分站测试工具-T0.0.1");
+		setTitle("综合分站测试工具-T0.0.2");
 		setLocationRelativeTo(null);// 窗体居中显示
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
