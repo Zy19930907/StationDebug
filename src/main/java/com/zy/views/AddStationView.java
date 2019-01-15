@@ -1,18 +1,22 @@
 package com.zy.views;
 
 import java.awt.Font;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import com.zou.tools.JMIPV4AddressField;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import com.zou.tools.JMIPV4AddressField;
+import com.zy.beans.SubStationBean;
+
+import StationDebug.App;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AddStationView extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -56,6 +60,11 @@ public class AddStationView extends JFrame {
 		position.setBounds(127, 60, 297, 40);
 		contentPane.add(position);
 		position.setColumns(10);
+		add.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				App.stationManger.addNewSubStation(new SubStationBean(ipField.getIpAddress()+":"+port.getSelectedItem().toString(),position.getText()));
+			}
+		});
 		
 		add.setFont(font);
 		add.setBounds(61, 110, 321, 40);

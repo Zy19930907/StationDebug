@@ -8,6 +8,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import org.jvnet.substance.SubstanceLookAndFeel;
 
+import com.zou.tools.SubStationManger;
 import com.zy.views.AddStationView;
 import com.zy.views.MainView;
 
@@ -16,7 +17,7 @@ public class App
 {
 	public static MainView mainView;
 	public static AddStationView addStationView;
-	
+	public static SubStationManger stationManger = new SubStationManger();
 	public static void main(String[] args) {
 		try {
 			UIManager.setLookAndFeel("org.jvnet.substance.skin.SubstanceBusinessBlackSteelLookAndFeel");
@@ -38,6 +39,7 @@ public class App
 					public void run() {
 						mainView = new MainView();
 						addStationView = new AddStationView();
+						addStationView.setVisible(true);
 					}
 				})).start();
 			}
