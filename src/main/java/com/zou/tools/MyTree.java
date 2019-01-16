@@ -14,7 +14,6 @@ public class MyTree extends JTree{
 	DefaultMutableTreeNode rootNode;
 	DefaultTreeCellRenderer render = new DefaultTreeCellRenderer();
 	private List<NodeObject> nodeObjects = new ArrayList<NodeObject>();
-
 	@Override
 	public void setModel(TreeModel newModel) {
 		super.setModel(newModel);

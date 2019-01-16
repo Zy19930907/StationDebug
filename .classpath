@@ -23,6 +23,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="E:/eclipse-workspace/StationDebug/substance-4.3.jar"/>
+	<classpathentry kind="lib" path="E:/JAVA/eclipse-workspace/StationDebug/substance-4.3.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

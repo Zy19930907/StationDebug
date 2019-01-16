@@ -22,7 +22,6 @@ public class AddStationView extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JMIPV4AddressField ipField = new JMIPV4AddressField("192.168.1.200");
-	private Font font = new Font("宋体", Font.BOLD, 24);
 	private JTextField position;
 	JLabel positionLabel = new JLabel("安装位置");
 	@SuppressWarnings("rawtypes")
@@ -41,22 +40,22 @@ public class AddStationView extends JFrame {
 		ipField.setBounds(10, 10, 268, 40);
 		
 		//IP输入框
-		ipField.setFont(font);
+		ipField.setFont(App.font);
 		contentPane.add(ipField);
 		
-		port.setFont(font);
+		port.setFont(App.font);
 		port.setModel(new DefaultComboBoxModel(new String[] {"5000", "5001", "5002"}));
 		port.setBounds(288, 10, 136, 40);
 		contentPane.add(port);
 		
-		positionLabel.setFont(font);
+		positionLabel.setFont(App.font);
 		positionLabel.setBounds(10, 60, 107, 40);
 		contentPane.add(positionLabel);
 		
 		position = new JTextField();
 		position.setHorizontalAlignment(SwingConstants.CENTER);
 		position.setToolTipText("请输入分站安装地址");
-		position.setFont(font);
+		position.setFont(App.font);
 		position.setBounds(127, 60, 297, 40);
 		contentPane.add(position);
 		position.setColumns(10);
@@ -66,7 +65,7 @@ public class AddStationView extends JFrame {
 			}
 		});
 		
-		add.setFont(font);
+		add.setFont(App.font);
 		add.setBounds(61, 110, 321, 40);
 		contentPane.add(add);
 		

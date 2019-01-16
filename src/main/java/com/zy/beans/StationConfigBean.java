@@ -15,12 +15,18 @@ public class StationConfigBean {
 	}
 
 	public void addStation(SubStationBean bean) {
-		if(!confiBeans.contains(bean))
-			confiBeans.add(bean);
+		confiBeans.add(bean);
 	}
 	
 	public void removeStation(SubStationBean bean) {
-		if(confiBeans.contains(bean))
-			confiBeans.remove(bean);
+		confiBeans.remove(bean);
+	}
+	
+	public boolean beanExist(SubStationBean bean) {
+		for(int i=0;i<confiBeans.size();i++) {
+			if(bean.getIpString().equals(confiBeans.get(i).getIpString()))
+				return true;
+		}
+		return false;
 	}
 }
