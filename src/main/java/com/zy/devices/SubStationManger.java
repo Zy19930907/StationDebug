@@ -1,8 +1,7 @@
-package com.zou.tools;
+package com.zy.devices;
 
 import com.zy.beans.StationConfigBean;
 import com.zy.beans.SubStationBean;
-import com.zy.devices.SubStation;
 
 import StationDebug.App;
 
@@ -43,4 +42,5 @@ public class SubStationManger {
 		App.configManager.saveConfig(System.getProperty("user.dir") + "\\Configs\\SubStationConfig.txt",
 				configBean);
 	}
+	
 }

@@ -13,13 +13,14 @@ import org.jvnet.substance.SubstanceLookAndFeel;
 import com.zou.tools.CmdMaker;
 import com.zou.tools.ConfigManager;
 import com.zou.tools.CrcMaker;
-import com.zou.tools.SubStationManger;
+import com.zy.devices.SubStationManger;
 import com.zy.net.UdpSender;
 import com.zy.quartz.scheduler.TimeTaskScheduler;
 import com.zy.views.AddStationView;
 import com.zy.views.MainView;
 import com.zy.views.StationListView;
 import com.zy.views.groupconfig.GroupConfigView;
+import com.zy.views.sensor.SenserFactory;
 
 public class App {
 	public static MainView mainView;
@@ -29,11 +30,12 @@ public class App {
 	public static SubStationManger stationManger = new SubStationManger();
 	public static UdpSender udpSender = new UdpSender();
 	public static ConfigManager configManager = new ConfigManager();
-	public static Font font = new Font("宋体", Font.BOLD, 24);
-	public static Font font18 = new Font("宋体", Font.PLAIN, 18);
+	public static final Font font = new Font("宋体", Font.BOLD, 24);
+	public static final Font font16 = new Font("宋体", Font.BOLD, 16);
 	public static CmdMaker cmdMaker = new CmdMaker();
 	public static CrcMaker crcMaker = new CrcMaker();
 	public static TimeTaskScheduler taskScheduler;
+	public static SenserFactory senserFactory = new SenserFactory();
 	
 	public static void main(String[] args) {
 

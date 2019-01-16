@@ -40,7 +40,6 @@ public class GroupConfigView extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		
 		scrollPane.setViewportView(panel);
 		
 		JPanel panel_1 = new JPanel();

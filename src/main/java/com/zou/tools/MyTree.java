@@ -8,6 +8,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreePath;
 
 public class MyTree extends JTree{
 	private static final long serialVersionUID = 1L;
@@ -26,11 +27,13 @@ public class MyTree extends JTree{
 	
 	public void AddNode(String nString,Object userObject) {
 		NodeObject object = new NodeObject();
-		object.setNode(new DefaultMutableTreeNode(nString));
+		DefaultMutableTreeNode node = new DefaultMutableTreeNode(nString);
+		object.setNode(node);
 		object.setNodeString(nString);
 		object.setUserObject(userObject);
 		if(!hasNode(nString)) {
 			rootNode.add(object.getNode());
+			setSelectionPath(new TreePath(node.getPath()));
 			nodeObjects.add(object);
 			updateUI();
 		}

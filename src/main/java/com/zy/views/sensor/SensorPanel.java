@@ -1,10 +1,12 @@
 package com.zy.views.sensor;
 
-import javax.swing.JPanel;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+
+import com.zy.sensors.Sensor;
 
 import StationDebug.App;
 
@@ -12,37 +14,55 @@ public class SensorPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private JTextField addr;
 	private JTextField listenValue;
+	private JTextField textField;
+	JButton imgBtn = new JButton("");
+	JLabel canIcon = new JLabel("");
+	JLabel linkIcon = new JLabel("");
 	public SensorPanel() {
 		setLayout(null);
+
+		imgBtn.setHorizontalAlignment(SwingConstants.CENTER);
+		imgBtn.setIcon(SensorIcons.undefineIcon);
+		imgBtn.setBounds(2, 2, 76, 76);
+		add(imgBtn);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setIcon(new ImageIcon(SensorPanel.class.getResource("/com/zy/imgs/change.png")));
-		lblNewLabel.setBounds(0, 0, 74, 74);
-		add(lblNewLabel);
+		linkIcon.setIcon(SensorIcons.noneIcon);
+		linkIcon.setBounds(84, 4, 32, 32);
+		add(linkIcon);
 		
-		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(SensorPanel.class.getResource("/com/zy/imgs/dislink.png")));
-		label.setBounds(84, 0, 32, 32);
-		add(label);
-		
-		JLabel label_1 = new JLabel("");
-		label_1.setIcon(new ImageIcon(SensorPanel.class.getResource("/com/zy/imgs/serch.png")));
-		label_1.setBounds(126, 0, 32, 32);
-		add(label_1);
+		canIcon.setIcon(SensorIcons.noneIcon);
+		canIcon.setBounds(126, 4, 32, 32);
+		add(canIcon);
 		
 		addr = new JTextField();
+		addr.setHorizontalAlignment(SwingConstants.CENTER);
 		addr.setEditable(false);
-		addr.setFont(App.font18);
-		addr.setBounds(168, 2, 122, 32);
+		addr.setFont(App.font16);
+		addr.setBounds(168, 4, 151, 32);
 		add(addr);
 		addr.setColumns(10);
 		
 		listenValue = new JTextField();
+		listenValue.setHorizontalAlignment(SwingConstants.CENTER);
 		listenValue.setEditable(false);
-		listenValue.setFont(App.font);
-		listenValue.setBounds(84, 40, 206, 32);
+		listenValue.setFont(App.font16);
+		listenValue.setBounds(84, 42, 235, 32);
 		add(listenValue);
 		listenValue.setColumns(10);
+		
+		textField = new JTextField();
+		textField.setEnabled(false);
+		textField.setEditable(false);
+		textField.setBounds(1, 1, 323, 78);
+		add(textField);
+		textField.setColumns(10);
+	}
+	
+	public void upDateSensor(Sensor sensor) {
+		imgBtn.setIcon(sensor.getSensorIcon());
+		canIcon.setIcon(sensor.getCanIcon());
+		addr.setText(sensor.getAddrString());
+		linkIcon.setIcon(sensor.getLinkIcon());
+		listenValue.setText(sensor.getValueString());
 	}
 }

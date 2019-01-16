@@ -7,11 +7,12 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 import com.zou.tools.DataSwitch;
-import com.zou.tools.DateTool;
 import com.zou.tools.IpSwitch;
 import com.zy.beans.SubStationBean;
 import com.zy.quartz.jobdetails.SubStationJobdetil;
 import com.zy.quartz.triggers.SubStationHeartTrigger;
+import com.zy.sensors.Sensor;
+import com.zy.views.sensor.SensorIcons;
 
 import StationDebug.App;
 
@@ -27,8 +28,20 @@ public class SubStation {
 	private SubStationHeartTrigger subStationTaskTrigger;
 	private SubStationJobdetil subStationJobDetail;
 	private volatile boolean listen = true;
-	
+
+	private volatile int SensorCnt;
+	private volatile Sensor[] sensors = new Sensor[128];
+
+	public Sensor[] getSensors() {
+		return sensors;
+	}
+
+	public void setSensors(Sensor[] sensors) {
+		this.sensors = sensors;
+	}
+
 	private Listen listenMsg = new Listen();
+
 	public SubStationBean getBean() {
 		return bean;
 	}
@@ -42,31 +55,38 @@ public class SubStation {
 		address = IpSwitch.getInetSocketAdress(bean.getIpString());
 		subStationTaskTrigger = new SubStationHeartTrigger(bean.getIpString(), "subStationGroup");
 		subStationJobDetail = new SubStationJobdetil(this);
+		for (int i = 0; i < 128; i++) {
+			sensors[i] = new Sensor();
+			sensors[i].setSensorIcon(SensorIcons.undefineIcon);
+			sensors[i].setLinkIcon(SensorIcons.noneIcon);
+			sensors[i].setCanIcon(SensorIcons.noneIcon);
+			sensors[i].setAddrString(String.valueOf(i + 1) + "#未定义");
+		}
 		linkServer.start();
 	}
-	
-	public void send(byte[] data){
-		if(outputStream != null) {
+
+	public void send(byte[] data) {
+		if (outputStream != null) {
 			try {
 				outputStream.write(data, 0, data.length);
 				outputStream.flush();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}	
+		}
 	}
-	
+
 	public void SendHeart() {
 		send(heart);
 	}
-	
+
 	public void close() {
-		if(socket != null){
+		if (socket != null) {
 			listen = false;
 			try {
-				if(inputStream != null)
+				if (inputStream != null)
 					inputStream.close();
-				if(outputStream != null)
+				if (outputStream != null)
 					outputStream.close();
 				socket.close();
 				socket = null;
@@ -78,13 +98,13 @@ public class SubStation {
 			}
 		}
 	}
-	
-	private class LinkServer extends Thread{
+
+	private class LinkServer extends Thread {
 		@Override
 		public void run() {
 			try {
 				socket.connect(address, 5000);
-				if(socket.isConnected()){
+				if (socket.isConnected()) {
 					inputStream = socket.getInputStream();
 					outputStream = socket.getOutputStream();
 					listen = true;
@@ -99,20 +119,37 @@ public class SubStation {
 			}
 		}
 	}
-	
-	private class Listen extends Thread{
+
+	private class Listen extends Thread {
 		private int recvLen;
 		private byte[] msg = new byte[4096];
 		private byte[] data;
+		private int i, j;
+		private byte[] sensorBuf = new byte[5];
+
 		@Override
 		public void run() {
-			while(listen) {
+			while (listen) {
 				try {
-					if((recvLen = inputStream.read(msg, 0, msg.length))!=-1) {
+					if ((recvLen = inputStream.read(msg, 0, msg.length)) != -1) {
 						data = null;
 						data = new byte[recvLen];
 						System.arraycopy(msg, 0, data, 0, recvLen);
-						System.out.println(DateTool.getTimeHMSS()+DataSwitch.bytesToHexString(data));
+						switch (data[9]) {
+						case 0x60:
+							SensorCnt = (((DataSwitch.abs(data[11]) * 256) + DataSwitch.abs(data[10])) - 11) / 5;// 数据中包含传感器个数
+							for (i = 0; i < SensorCnt; i++) {
+								for (j = 0; j < 5; j++)
+									sensorBuf[j] = data[20 + 5 * i + j];
+								App.senserFactory.freshSenser(sensors[DataSwitch.abs(sensorBuf[0]) - 1], sensorBuf);
+							}
+							if (App.mainView.getSelectedStation() != null) {
+								if (bean.getIpString()
+										.equals(App.mainView.getSelectedStation().getBean().getIpString()))
+									App.mainView.UpdateCurInfo(SubStation.this);
+							}
+							break;
+						}
 					}
 				} catch (IOException e) {
 					listen = false;
