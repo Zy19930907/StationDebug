@@ -18,7 +18,6 @@ public class TimeTaskScheduler {
 	public TimeTaskScheduler() {
 		try {
 			scheduler = sFactory.getScheduler();
-
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}

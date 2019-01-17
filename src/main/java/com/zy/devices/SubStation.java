@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
 
 import com.zou.tools.DataSwitch;
 import com.zou.tools.DateTool;
@@ -32,9 +33,12 @@ public class SubStation {
 	private volatile boolean listen = true;
 
 	private volatile int SensorCnt;
+	private volatile int SentCnt = 0;
 	private volatile Sensor[] sensors = new Sensor[128];
 	private volatile Sensor[] boardcasts = new Sensor[128];
 	private volatile int boardcastCnt = 0;
+	private SimpleDateFormat format = new SimpleDateFormat("SSS");
+
 	public Sensor[] getSensors() {
 		return sensors;
 	}
@@ -64,8 +68,6 @@ public class SubStation {
 	public SubStation(SubStationBean bean) {
 		this.bean = bean;
 		address = IpSwitch.getInetSocketAdress(bean.getIpString());
-		subStationTaskTrigger = new SubStationHeartTrigger(bean.getIpString(), "subStationGroup");
-		subStationJobDetail = new SubStationJobdetil(this);
 		for (int i = 0; i < 128; i++) {
 			sensors[i] = new Sensor();
 			sensors[i].setSensorIcon(SensorIcons.undefineIcon);
@@ -73,7 +75,7 @@ public class SubStation {
 			sensors[i].setCanIcon(SensorIcons.noneIcon);
 			sensors[i].setAddrString(String.valueOf(i + 1) + "#未定义");
 			sensors[i].setStation(this);
-			
+
 			boardcasts[i] = new Sensor();
 			boardcasts[i].setSensorIcon(SensorIcons.undefineIcon);
 			boardcasts[i].setLinkIcon(SensorIcons.noneIcon);
@@ -89,7 +91,6 @@ public class SubStation {
 			try {
 				outputStream.write(data, 0, data.length);
 				outputStream.flush();
-				System.out.println(DataSwitch.bytesToHexString(data));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -98,13 +99,22 @@ public class SubStation {
 
 	public void SendHeart() {
 		send(heart);
+		SentCnt++;
+		LogRecoder.saveLog_h(
+				System.getProperty("user.dir") + "\\Logs\\SubStation\\"
+						+ bean.getIpString().substring(0, bean.getIpString().indexOf(":")) + "\\"
+						+ DateTool.getFileNameYYMMDD() + "\\" + DateTool.getTimeH() + ".txt",
+				"【SEND】----->" + DateTool.getTimeHMSS() + DataSwitch.bytesToHexString(heart));
+		if(SentCnt>=4){
+			App.taskScheduler.deletJob(SubStation.this);
+			close();
+		}
 	}
 
 	public void close() {
 		if (socket != null) {
 			listen = false;
 			try {
-				App.taskScheduler.deletJob(this);
 				if (inputStream != null)
 					inputStream.close();
 				if (outputStream != null)
@@ -113,6 +123,7 @@ public class SubStation {
 				socket = null;
 				inputStream = null;
 				outputStream = null;
+				SentCnt = 0;
 				System.gc();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -124,6 +135,9 @@ public class SubStation {
 		@Override
 		public void run() {
 			try {
+				SentCnt = 0;
+				socket = null;
+				socket = new Socket();
 				socket.connect(address, 5000);
 				if (socket.isConnected()) {
 					inputStream = socket.getInputStream();
@@ -132,6 +146,8 @@ public class SubStation {
 					listenMsg = null;
 					listenMsg = new Listen();
 					listenMsg.start();
+					subStationTaskTrigger = new SubStationHeartTrigger(bean.getIpString(), "subStationGroup");
+					subStationJobDetail = new SubStationJobdetil(SubStation.this);
 					App.taskScheduler.bindJob(subStationJobDetail, subStationTaskTrigger);
 				}
 			} catch (IOException e) {
@@ -159,10 +175,13 @@ public class SubStation {
 						boardcastCnt = 0;
 						switch (data[9]) {
 						case 0x60:// 分站实时数据
-							LogRecoder.saveLog_n(System.getProperty("user.dir") + "\\Logs\\SubStation\\"
-									+ bean.getIpString().substring(0, bean.getIpString().indexOf(":")) + "\\"
-									+ DateTool.getFileNameYYMMDD() + "\\"+DateTool.getTimeH()+".txt", "【RECV】<--"+DataSwitch.bytesToHexString(data));
-							for(i=0;i<128;i++) {
+							SentCnt = 0;
+							LogRecoder.saveLog_m(
+									System.getProperty("user.dir") + "\\Logs\\SubStation\\"
+											+ bean.getIpString().substring(0, bean.getIpString().indexOf(":")) + "\\"
+											+ DateTool.getFileNameYYMMDD() + "\\" + DateTool.getTimeH() + ".txt",
+									"【RECV】<-----" + DateTool.getTimeHMSS() + DataSwitch.bytesToHexString(data));
+							for (i = 0; i < 128; i++) {
 								sensors[i].setDefine(false);
 							}
 							SensorCnt = (((DataSwitch.abs(data[11]) * 256) + DataSwitch.abs(data[10])) - 11) / 5;// 数据中包含传感器个数
@@ -170,9 +189,15 @@ public class SubStation {
 								for (j = 0; j < 5; j++)
 									sensorBuf[j] = data[20 + 5 * i + j];
 								App.senserFactory.freshSenser(sensors[i], sensorBuf);
-								if(sensors[i].getSensorIcon().equals(SensorIcons.boadrCastIcon)) {
+								if (sensors[i].getSensorIcon().equals(SensorIcons.boadrCastIcon)) {
 									boardcasts[boardcastCnt++] = sensors[i];
 								}
+								LogRecoder.saveLog_m(System.getProperty("user.dir") + "\\Logs\\SubStation\\"
+										+ bean.getIpString().substring(0, bean.getIpString().indexOf(":")) + "\\"
+										+ DateTool.getFileNameYYMMDD() + "\\" + DateTool.getTimeH() + ".txt",
+										"【记录" + format.format(i + 1) + "】" + "["
+												+ DataSwitch.bytesToHexString(sensorBuf) + "] >>>> "
+												+ sensors[i].getAddrString() + "---" + sensors[i].getValueString());
 							}
 							if (App.mainView.getSelectedStation() != null) {
 								if (bean.getIpString()
@@ -188,6 +213,9 @@ public class SubStation {
 					e.printStackTrace();
 				}
 			}
+			linkServer = null;
+			linkServer = new LinkServer();
+			linkServer.start();
 		}
 	}
 }

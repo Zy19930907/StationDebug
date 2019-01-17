@@ -13,7 +13,7 @@ import com.zy.quartz.quartzjobs.SubStationHeartJob;
 
 public class SubStationJobdetil {
 	private JobDetail jobDetail;
-	private Map<String, SubStation> voiceJobDetailMap = new HashMap<String, SubStation>();
+	private Map<String, SubStation> stationJobDetailMap = new HashMap<String, SubStation>();
 	public JobDetail getJobDetail() {
 		return jobDetail;
 	}
@@ -21,8 +21,8 @@ public class SubStationJobdetil {
 		this.jobDetail = jobDetail;
 	}
 	public  SubStationJobdetil(SubStation station) {
-		voiceJobDetailMap.put("subStation", station);
+		stationJobDetailMap.put("subStation", station);
 		jobDetail = JobBuilder.newJob(SubStationHeartJob.class)
-				.withIdentity(station.getBean().getIpString(), "subStationGroup").usingJobData(new JobDataMap(voiceJobDetailMap)).build();
+				.withIdentity(station.getBean().getIpString(), "subStationGroup").usingJobData(new JobDataMap(stationJobDetailMap)).build();
 	}
 }

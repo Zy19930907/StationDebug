@@ -26,9 +26,10 @@ public class SensorPanel extends JPanel{
 		imgBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(sensor != null) {
-					if(sensor.getSensorIcon().equals(SensorIcons.boadrCastIcon))
+					if(sensor.getSensorIcon().equals(SensorIcons.boadrCastIcon)) {
 						App.singleBoardCastCtrView.setBardCast(sensor);
 						App.singleBoardCastCtrView.setVisible(true);
+					}
 				}
 			}
 		});

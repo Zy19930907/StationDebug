@@ -1,5 +1,7 @@
 package com.zy.views.sensor;
 
+import java.text.SimpleDateFormat;
+
 import com.zou.tools.DataSwitch;
 import com.zy.sensors.Sensor;
 
@@ -10,7 +12,7 @@ public class SenserFactory {
 	private boolean moni = false;
 	private float Battery;
 	private int Volum;
-
+	private SimpleDateFormat format = new SimpleDateFormat("SSS");
 	public void freshSenser(Sensor sensor, byte[] sensorData) {
 		moni = false;
 		unit = "";
@@ -21,51 +23,51 @@ public class SenserFactory {
 		sensor.setAddr(sensorData[0]);
 		sensor.setDefine(true);
 		if (sensorData[1] == 0x00) { // 低浓甲烷
-			sensor.setAddrString(String.valueOf(DataSwitch.abs(sensorData[0])) + "#-低浓甲烷");
+			sensor.setAddrString(format.format(DataSwitch.abs(sensorData[0])) + "#-低浓甲烷");
 			sensor.setSensorIcon(SensorIcons.cH4Icon);
 			unit = "%";
 			moni = true;
 		} else if (sensorData[1] == 0x01) {// 高低浓甲烷
-			sensor.setAddrString(String.valueOf(DataSwitch.abs(sensorData[0])) + "#-高低浓甲烷");
+			sensor.setAddrString(format.format(DataSwitch.abs(sensorData[0])) + "#-高低浓甲烷");
 			sensor.setSensorIcon(SensorIcons.cH4Icon);
 			unit = "%";
 			moni = true;
 		} else if (sensorData[1] == 0x03) {// 激光甲烷
-			sensor.setAddrString(String.valueOf(DataSwitch.abs(sensorData[0])) + "#-激光甲烷");
+			sensor.setAddrString(format.format(DataSwitch.abs(sensorData[0])) + "#-激光甲烷");
 			sensor.setSensorIcon(SensorIcons.cH4Icon);
 			unit = "%";
 			moni = true;
 		} else if (sensorData[1] == 0x04) {// 一氧化碳
-			sensor.setAddrString(String.valueOf(DataSwitch.abs(sensorData[0])) + "#-CO");
+			sensor.setAddrString(format.format(DataSwitch.abs(sensorData[0])) + "#-CO");
 			sensor.setSensorIcon(SensorIcons.coIcon);
 			unit = "ppm";
 			moni = true;
 		} else if (sensorData[1] == 0x05) {// 氧气
-			sensor.setAddrString(String.valueOf(DataSwitch.abs(sensorData[0])) + "#-氧气");
+			sensor.setAddrString(format.format(DataSwitch.abs(sensorData[0])) + "#-氧气");
 			sensor.setSensorIcon(SensorIcons.o2Icon);
 			unit = "%";
 			moni = true;
 
 		} else if (sensorData[1] == 0x06) {// 负压
-			sensor.setAddrString(String.valueOf(DataSwitch.abs(sensorData[0])) + "#-负压");
+			sensor.setAddrString(format.format(DataSwitch.abs(sensorData[0])) + "#-负压");
 			sensor.setSensorIcon(SensorIcons.presureIcon);
 			unit = "%";
 			moni = true;
 
 		} else if (sensorData[1] == 0x07) {// 温湿度
-			sensor.setAddrString(String.valueOf(DataSwitch.abs(sensorData[0])) + "#-温湿度");
+			sensor.setAddrString(format.format(DataSwitch.abs(sensorData[0])) + "#-温湿度");
 			sensor.setSensorIcon(SensorIcons.tempthIcon);
 			unit = "%";
 			moni = true;
 
 		} else if (sensorData[1] == 0x09) {// 二氧化碳
-			sensor.setAddrString(String.valueOf(DataSwitch.abs(sensorData[0])) + "#-二氧化碳");
+			sensor.setAddrString(format.format(DataSwitch.abs(sensorData[0])) + "#-二氧化碳");
 			sensor.setSensorIcon(SensorIcons.co2Icon);
 			unit = "%";
 			moni = true;
 
 		} else if (sensorData[1] == 0x1F) {// 断电器
-			sensor.setAddrString(String.valueOf(DataSwitch.abs(sensorData[0])) + "#-断电器");
+			sensor.setAddrString(format.format(DataSwitch.abs(sensorData[0])) + "#-断电器");
 			sensor.setSensorIcon(SensorIcons.breakerIcon);
 			switch (sensorData[2] & 0x03) {
 			case 0x00:
@@ -82,7 +84,7 @@ public class SenserFactory {
 				break;
 			}
 		} else if (sensorData[1] == 0x22) {// 开停
-			sensor.setAddrString(String.valueOf(DataSwitch.abs(sensorData[0])) + "#-开停");
+			sensor.setAddrString(format.format(DataSwitch.abs(sensorData[0])) + "#-开停");
 			sensor.setSensorIcon(SensorIcons.ktIcon);
 			switch (sensorData[2] & 0x01) {
 			case 0x00:
@@ -94,7 +96,7 @@ public class SenserFactory {
 			}
 
 		} else if (sensorData[1] == 0x23) {// 电源
-			sensor.setAddrString(String.valueOf(DataSwitch.abs(sensorData[0])) + "#-电源");
+			sensor.setAddrString(format.format(DataSwitch.abs(sensorData[0])) + "#-电源");
 			sensor.setSensorIcon(SensorIcons.powerIcon);
 			switch (sensorData[2] & 0x01) {
 			case 0x00:
@@ -105,10 +107,10 @@ public class SenserFactory {
 				break;
 			}
 		} else if (sensorData[1] == 0x24) {// 读卡器
-			sensor.setAddrString(String.valueOf(DataSwitch.abs(sensorData[0])) + "#-读卡器");
+			sensor.setAddrString(format.format(DataSwitch.abs(sensorData[0])) + "#-读卡器");
 			sensor.setSensorIcon(SensorIcons.readerIcon);
 		} else if (sensorData[1] == 0x28) {// 广播
-			sensor.setAddrString(String.valueOf(DataSwitch.abs(sensorData[0])) + "#-广播终端");
+			sensor.setAddrString(format.format(DataSwitch.abs(sensorData[0])) + "#-广播终端");
 			sensor.setSensorIcon(SensorIcons.boadrCastIcon);
 			Battery = DataSwitch.abs(sensorData[3]);
 			Battery /= 10;
@@ -133,22 +135,22 @@ public class SenserFactory {
 			listenValue += ("|音量：" + String.valueOf(100-Volum));
 			sensor.setVolum(100-Volum);
 		} else if (sensorData[1] == 0x08) {// 风速
-			sensor.setAddrString(String.valueOf(DataSwitch.abs(sensorData[0])) + "#-风速");
+			sensor.setAddrString(format.format(DataSwitch.abs(sensorData[0])) + "#-风速");
 			sensor.setSensorIcon(SensorIcons.windspeedIcon);
 			unit = "m/s";
 			moni = true;
 		} else if (sensorData[1] == 0x0C) {// 粉尘
-			sensor.setAddrString(String.valueOf(DataSwitch.abs(sensorData[0])) + "#-粉尘");
+			sensor.setAddrString(format.format(DataSwitch.abs(sensorData[0])) + "#-粉尘");
 			sensor.setSensorIcon(SensorIcons.dustIcon);
 			unit = "ppm";
 			moni = true;
 		} else if (sensorData[1] == 0x0D) {// 液位
-			sensor.setAddrString(String.valueOf(DataSwitch.abs(sensorData[0])) + "#-液位");
+			sensor.setAddrString(format.format(DataSwitch.abs(sensorData[0])) + "#-液位");
 			sensor.setSensorIcon(SensorIcons.llevelIcon);
 			unit = "m";
 			moni = true;
 		} else if (sensorData[1] == 0x0E) {// 烟雾
-			sensor.setAddrString(String.valueOf(DataSwitch.abs(sensorData[0])) + "#-烟雾");
+			sensor.setAddrString(format.format(DataSwitch.abs(sensorData[0])) + "#-烟雾");
 			sensor.setSensorIcon(SensorIcons.smogIcon);
 			switch (sensorData[2] & 0x01) {
 			case 0x00:
@@ -159,7 +161,7 @@ public class SenserFactory {
 				break;
 			}
 		} else if (sensorData[1] == 0x0F) {// 风门
-			sensor.setAddrString(String.valueOf(DataSwitch.abs(sensorData[0])) + "#-风门");
+			sensor.setAddrString(format.format(DataSwitch.abs(sensorData[0])) + "#-风门");
 			sensor.setSensorIcon(SensorIcons.airdoorIcon);
 			if ((sensorData[2] & 0x0F) == 0x02) {
 				listenValue = "两风门关闭";
@@ -178,7 +180,7 @@ public class SenserFactory {
 				}
 			}
 		} else if (sensorData[1] == 0x2A) {// 风筒
-			sensor.setAddrString(String.valueOf(DataSwitch.abs(sensorData[0])) + "#-风筒");
+			sensor.setAddrString(format.format(DataSwitch.abs(sensorData[0])) + "#-风筒");
 			sensor.setSensorIcon(SensorIcons.fengtongIcon);
 			switch (sensorData[2]&0x01){
             case 0x00:
@@ -189,10 +191,10 @@ public class SenserFactory {
                 break;
         }
 		} else if (sensorData[1] == 0x38) {// 张家峁综保
-			sensor.setAddrString(String.valueOf(DataSwitch.abs(sensorData[0])) + "#-张家峁综保");
+			sensor.setAddrString(format.format(DataSwitch.abs(sensorData[0])) + "#-张家峁综保");
 			sensor.setSensorIcon(SensorIcons.coIcon);
 		} else if (sensorData[1] == 0x39) {// 北京院电源
-			sensor.setAddrString(String.valueOf(DataSwitch.abs(sensorData[0])) + "#-北京院电源");
+			sensor.setAddrString(format.format(DataSwitch.abs(sensorData[0])) + "#-北京院电源");
 			sensor.setSensorIcon(SensorIcons.powerIcon);
 			switch (sensorData[2]&0x01){
             case 0x00:
@@ -204,9 +206,16 @@ public class SenserFactory {
                 break;
         }
 		} else {
-			sensor.setAddrString(String.valueOf(DataSwitch.abs(sensorData[0])) + "#-未定义");
 			sensor.setSensorIcon(SensorIcons.undefineIcon);
-			listenValue = "------";
+			if((sensorData[1]&0x80) == 0x80)
+			{
+				listenValue = "通信中断";
+				sensor.setAddrString(format.format(DataSwitch.abs(sensorData[0])) + "#-未知");
+			}
+			else {
+				listenValue = "------";
+				sensor.setAddrString(format.format(DataSwitch.abs(sensorData[0])) + "#-类型未定义");
+			}
 		}
 
 		if (moni) {

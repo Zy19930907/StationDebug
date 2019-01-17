@@ -83,7 +83,8 @@ public class DataSwitch {
 		   int i=0,j=0;
 		   for(i=0;i<inBytes.length;i++) {
 			outString+=byteToHexString(inBytes[i]);
-			outString+=" ";
+			if(i < inBytes.length-1)
+				outString+=" ";
 			j++;
 			if(j>=60) {
 				outString+="\r\n";
