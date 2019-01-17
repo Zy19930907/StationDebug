@@ -17,6 +17,7 @@ public class SensorPanel extends JPanel{
 	private JTextField addr;
 	private JTextField listenValue;
 	private JTextField textField;
+	private Sensor sensor;
 	JButton imgBtn = new JButton("");
 	JLabel canIcon = new JLabel("");
 	JLabel linkIcon = new JLabel("");
@@ -24,6 +25,11 @@ public class SensorPanel extends JPanel{
 		setLayout(null);
 		imgBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(sensor != null) {
+					if(sensor.getSensorIcon().equals(SensorIcons.boadrCastIcon))
+						App.singleBoardCastCtrView.setBardCast(sensor);
+						App.singleBoardCastCtrView.setVisible(true);
+				}
 			}
 		});
 
@@ -43,7 +49,7 @@ public class SensorPanel extends JPanel{
 		addr = new JTextField();
 		addr.setHorizontalAlignment(SwingConstants.CENTER);
 		addr.setEditable(false);
-		addr.setFont(App.font16);
+		addr.setFont(App.font18);
 		addr.setBounds(168, 4, 151, 32);
 		add(addr);
 		addr.setColumns(10);
@@ -51,7 +57,7 @@ public class SensorPanel extends JPanel{
 		listenValue = new JTextField();
 		listenValue.setHorizontalAlignment(SwingConstants.CENTER);
 		listenValue.setEditable(false);
-		listenValue.setFont(App.font16);
+		listenValue.setFont(App.font18);
 		listenValue.setBounds(84, 42, 235, 32);
 		add(listenValue);
 		listenValue.setColumns(10);
@@ -65,16 +71,20 @@ public class SensorPanel extends JPanel{
 	}
 	
 	public void upDateSensor(Sensor sensor) {
+		this.sensor = null;
 		boolean isUndefine = sensor.isDefine();
 		if(sensor.getSensorIcon().equals(SensorIcons.undefineIcon) && (isUndefine)) {
 			imgBtn.setIcon(SensorIcons.linkbreakIcon);
 			addr.setText(sensor.getAddrString().replaceAll("未定义", "连接断开"));
+			canIcon.setIcon(SensorIcons.noneIcon);
 		}	
 		else {
 			addr.setText(sensor.getAddrString());
 			imgBtn.setIcon(sensor.getSensorIcon());
-		}	
-		canIcon.setIcon(sensor.getCanIcon());
+			canIcon.setIcon(sensor.getCanIcon());
+			this.sensor = sensor;
+		}
+		
 		linkIcon.setIcon(sensor.getLinkIcon());
 		listenValue.setText(sensor.getValueString());
 		imgBtn.setVisible(isUndefine);

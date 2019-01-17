@@ -54,6 +54,7 @@ public class GroupConfigView extends JFrame {
 					flagH |= (panels[i+8].getSelectFlag() << (i*8));
 				}
 				station.getBean().setGroup(index, flagL, flagH);
+				App.mainView.getSelectedStation().send(App.cmdMaker.getBoardCastGroupConfigCmd(App.mainView.getSelectedStation().getBean().getGroupConfig()));
 				App.stationManger.upDateConfig();
 			}
 		});

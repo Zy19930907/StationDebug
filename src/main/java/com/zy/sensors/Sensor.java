@@ -1,6 +1,8 @@
 package com.zy.sensors;
 
 import javax.swing.Icon;
+
+import com.zy.devices.SubStation;
 import com.zy.views.sensor.SensorIcons;
 
 public class Sensor {
@@ -9,8 +11,29 @@ public class Sensor {
 	private Icon canIcon;
 	private String addrString;
 	private boolean isDefine = false;
+	private int addr;
+	private int volum;
+	private SubStation station;
 	protected String valueString = "----------";
 
+	public int getVolum() {
+		return volum;
+	}
+	public void setVolum(int volum) {
+		this.volum = volum;
+	}
+	public SubStation getStation() {
+		return station;
+	}
+	public void setStation(SubStation station) {
+		this.station = station;
+	}
+	public int getAddr() {
+		return addr;
+	}
+	public void setAddr(int addr) {
+		this.addr = addr;
+	}
 	public Icon getCanIcon() {
 		return canIcon;
 	}

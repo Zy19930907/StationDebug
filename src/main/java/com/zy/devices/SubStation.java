@@ -33,7 +33,8 @@ public class SubStation {
 
 	private volatile int SensorCnt;
 	private volatile Sensor[] sensors = new Sensor[128];
-
+	private volatile Sensor[] boardcasts = new Sensor[128];
+	private volatile int boardcastCnt = 0;
 	public Sensor[] getSensors() {
 		return sensors;
 	}
@@ -71,6 +72,14 @@ public class SubStation {
 			sensors[i].setLinkIcon(SensorIcons.noneIcon);
 			sensors[i].setCanIcon(SensorIcons.noneIcon);
 			sensors[i].setAddrString(String.valueOf(i + 1) + "#未定义");
+			sensors[i].setStation(this);
+			
+			boardcasts[i] = new Sensor();
+			boardcasts[i].setSensorIcon(SensorIcons.undefineIcon);
+			boardcasts[i].setLinkIcon(SensorIcons.noneIcon);
+			boardcasts[i].setCanIcon(SensorIcons.noneIcon);
+			boardcasts[i].setAddrString(String.valueOf(i + 1) + "#未定义");
+			boardcasts[i].setStation(this);
 		}
 		linkServer.start();
 	}
@@ -80,6 +89,7 @@ public class SubStation {
 			try {
 				outputStream.write(data, 0, data.length);
 				outputStream.flush();
+				System.out.println(DataSwitch.bytesToHexString(data));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -146,6 +156,7 @@ public class SubStation {
 						data = null;
 						data = new byte[recvLen];
 						System.arraycopy(msg, 0, data, 0, recvLen);
+						boardcastCnt = 0;
 						switch (data[9]) {
 						case 0x60:// 分站实时数据
 							LogRecoder.saveLog_n(System.getProperty("user.dir") + "\\Logs\\SubStation\\"
@@ -159,6 +170,9 @@ public class SubStation {
 								for (j = 0; j < 5; j++)
 									sensorBuf[j] = data[20 + 5 * i + j];
 								App.senserFactory.freshSenser(sensors[i], sensorBuf);
+								if(sensors[i].getSensorIcon().equals(SensorIcons.boadrCastIcon)) {
+									boardcasts[boardcastCnt++] = sensors[i];
+								}
 							}
 							if (App.mainView.getSelectedStation() != null) {
 								if (bean.getIpString()

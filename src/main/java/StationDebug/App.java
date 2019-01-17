@@ -18,6 +18,7 @@ import com.zy.net.UdpSender;
 import com.zy.quartz.scheduler.TimeTaskScheduler;
 import com.zy.views.AddStationView;
 import com.zy.views.MainView;
+import com.zy.views.SingleBoardCastCtrView;
 import com.zy.views.StationListView;
 import com.zy.views.groupconfig.GroupConfigView;
 import com.zy.views.sensor.SenserFactory;
@@ -27,11 +28,12 @@ public class App {
 	public static AddStationView addStationView;
 	public static GroupConfigView groupConfigView;
 	public static StationListView stationListView;
+	public static SingleBoardCastCtrView singleBoardCastCtrView;
 	public static SubStationManger stationManger = new SubStationManger();
 	public static UdpSender udpSender = new UdpSender();
 	public static ConfigManager configManager = new ConfigManager();
 	public static final Font font = new Font("宋体", Font.BOLD, 24);
-	public static final Font font16 = new Font("宋体", Font.BOLD, 16);
+	public static final Font font18 = new Font("宋体", Font.BOLD, 16);
 	public static CmdMaker cmdMaker = new CmdMaker();
 	public static CrcMaker crcMaker = new CrcMaker();
 	public static TimeTaskScheduler taskScheduler;
@@ -47,7 +49,7 @@ public class App {
 					public void run() {
 						try {
 							UIManager.setLookAndFeel("org.jvnet.substance.skin.SubstanceBusinessBlackSteelLookAndFeel");
-							SubstanceLookAndFeel.setCurrentTheme("org.jvnet.substance.theme.SubstanceBottleGreenTheme");
+							SubstanceLookAndFeel.setCurrentTheme("org.jvnet.substance.theme.BusinessBlackSteelSkin");
 							SubstanceLookAndFeel
 									.setCurrentWatermark("org.jvnet.substance.watermark.SubstanceNoneWatermark");
 							SubstanceLookAndFeel
@@ -63,6 +65,7 @@ public class App {
 						addStationView = new AddStationView();
 						stationListView = new StationListView();
 						groupConfigView = new GroupConfigView();
+						singleBoardCastCtrView = new SingleBoardCastCtrView();
 					}
 				})).start();
 			}

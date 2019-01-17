@@ -30,4 +30,7 @@ public class SensorIcons {
 	public static final Icon smogIcon = new ImageIcon(SensorIcons.class.getResource("/com/zy/imgs/smog.png"));
 	public static final Icon airdoorIcon = new ImageIcon(SensorIcons.class.getResource("/com/zy/imgs/airdoor.png"));
 	public static final Icon fengtongIcon = new ImageIcon(SensorIcons.class.getResource("/com/zy/imgs/fengtong.png"));
+	
+	public static final Icon wavIcon = new ImageIcon(SensorIcons.class.getResource("/com/zy/imgs/wav.png"));
+	public static final Icon mp3Icon = new ImageIcon(SensorIcons.class.getResource("/com/zy/imgs/mp3.png"));
 }

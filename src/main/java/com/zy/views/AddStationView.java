@@ -1,6 +1,8 @@
 package com.zy.views;
 
-import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -10,13 +12,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
 import com.zou.tools.JMIPV4AddressField;
 import com.zy.beans.SubStationBean;
 
 import StationDebug.App;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class AddStationView extends JFrame {
 	private static final long serialVersionUID = 1L;
