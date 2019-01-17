@@ -18,6 +18,7 @@ public class SenserFactory {
 		nongdu = (((DataSwitch.abs(sensorData[4]) * 256) + DataSwitch.abs(sensorData[3])));
 		concen = (double) (nongdu & 0x000003FF);
 		sensor.freshPublicStatus(sensorData);
+		sensor.setDefine(true);
 		if (sensorData[1] == 0x00) { // 低浓甲烷
 			sensor.setAddrString(String.valueOf(DataSwitch.abs(sensorData[0])) + "#低浓甲烷");
 			sensor.setSensorIcon(SensorIcons.cH4Icon);

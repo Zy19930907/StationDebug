@@ -35,7 +35,6 @@ public class MainView extends JFrame {
 	private int page = 0;
 	JLabel label = new JLabel(("   第"+String.valueOf(page+1)+"页   "));
 	JPanel panel = new JPanel();
-	
 	private SensorColumPanel[] sensorColumPanels = new SensorColumPanel[8];
 	
 	public MainView() {
@@ -88,7 +87,6 @@ public class MainView extends JFrame {
 			sensorColumPanels[i] = sensorColumPanel;
 		}
 		
-		
 		panel_1.add(panel);
 		
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -110,7 +108,6 @@ public class MainView extends JFrame {
 		preBtn.setIcon(new ImageIcon(MainView.class.getResource("/com/zy/imgs/prepage.png")));
 		panel_2.add(preBtn);
 		
-		
 		label.setFont(App.font);
 		panel_2.add(label);
 		
@@ -119,7 +116,7 @@ public class MainView extends JFrame {
 		nextBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(page<3)
+				if(page<(((SubStation) stationTree.getSelectObject()).getSensorCnt() / 32))
 					page++;
 				label.setText("   第"+String.valueOf(page+1)+"页   ");
 				UpdateCurInfo((SubStation) stationTree.getSelectObject());
@@ -134,6 +131,10 @@ public class MainView extends JFrame {
 		stationTree.AddNode(nString, userObject);
 	}
 
+	public void RemoveNode(String nString) {
+		stationTree.removeNode(nString);
+	}
+	
 	public SubStation getSelectedStation() {
 		return (SubStation) stationTree.getSelectObject();
 	}

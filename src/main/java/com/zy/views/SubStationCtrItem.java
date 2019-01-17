@@ -19,6 +19,13 @@ public class SubStationCtrItem extends JPopupMenu{
 	
 	public SubStationCtrItem() {
 		delStation.setIcon(new ImageIcon(SubStationCtrItem.class.getResource("/com/zy/imgs/delete.png")));
+		delStation.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				App.stationManger.removeStation(App.mainView.getSelectedStation());
+			}
+		});
 		delStation.setFont(App.font);
 		add(delStation);
 		disLinkItem.setIcon(new ImageIcon(SubStationCtrItem.class.getResource("/com/zy/imgs/dislink.png")));

@@ -9,6 +9,8 @@ import javax.swing.SwingConstants;
 import com.zy.sensors.Sensor;
 
 import StationDebug.App;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class SensorPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
@@ -20,6 +22,10 @@ public class SensorPanel extends JPanel{
 	JLabel linkIcon = new JLabel("");
 	public SensorPanel() {
 		setLayout(null);
+		imgBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 
 		imgBtn.setHorizontalAlignment(SwingConstants.CENTER);
 		imgBtn.setIcon(SensorIcons.undefineIcon);
@@ -59,10 +65,22 @@ public class SensorPanel extends JPanel{
 	}
 	
 	public void upDateSensor(Sensor sensor) {
-		imgBtn.setIcon(sensor.getSensorIcon());
+		boolean isUndefine = sensor.isDefine();
+		if(sensor.getSensorIcon().equals(SensorIcons.undefineIcon) && (isUndefine)) {
+			imgBtn.setIcon(SensorIcons.linkbreakIcon);
+			addr.setText(sensor.getAddrString().replaceAll("未定义", "连接断开"));
+		}	
+		else {
+			addr.setText(sensor.getAddrString());
+			imgBtn.setIcon(sensor.getSensorIcon());
+		}	
 		canIcon.setIcon(sensor.getCanIcon());
-		addr.setText(sensor.getAddrString());
 		linkIcon.setIcon(sensor.getLinkIcon());
 		listenValue.setText(sensor.getValueString());
+		imgBtn.setVisible(isUndefine);
+		addr.setVisible(isUndefine);
+		canIcon.setVisible(isUndefine);
+		linkIcon.setVisible(isUndefine);
+		listenValue.setVisible(isUndefine);
 	}
 }

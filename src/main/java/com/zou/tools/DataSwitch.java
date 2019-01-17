@@ -85,7 +85,7 @@ public class DataSwitch {
 			outString+=byteToHexString(inBytes[i]);
 			outString+=" ";
 			j++;
-			if(j>=16) {
+			if(j>=60) {
 				outString+="\r\n";
 				j = 0;
 			}

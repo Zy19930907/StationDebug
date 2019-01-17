@@ -7,7 +7,9 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 import com.zou.tools.DataSwitch;
+import com.zou.tools.DateTool;
 import com.zou.tools.IpSwitch;
+import com.zou.tools.LogRecoder;
 import com.zy.beans.SubStationBean;
 import com.zy.quartz.jobdetails.SubStationJobdetil;
 import com.zy.quartz.triggers.SubStationHeartTrigger;
@@ -34,6 +36,14 @@ public class SubStation {
 
 	public Sensor[] getSensors() {
 		return sensors;
+	}
+
+	public int getSensorCnt() {
+		return SensorCnt;
+	}
+
+	public void setSensorCnt(int sensorCnt) {
+		SensorCnt = sensorCnt;
 	}
 
 	public void setSensors(Sensor[] sensors) {
@@ -84,6 +94,7 @@ public class SubStation {
 		if (socket != null) {
 			listen = false;
 			try {
+				App.taskScheduler.deletJob(this);
 				if (inputStream != null)
 					inputStream.close();
 				if (outputStream != null)
@@ -136,12 +147,18 @@ public class SubStation {
 						data = new byte[recvLen];
 						System.arraycopy(msg, 0, data, 0, recvLen);
 						switch (data[9]) {
-						case 0x60:
+						case 0x60:// 分站实时数据
+							LogRecoder.saveLog_n(System.getProperty("user.dir") + "\\Logs\\SubStation\\"
+									+ bean.getIpString().substring(0, bean.getIpString().indexOf(":")) + "\\"
+									+ DateTool.getFileNameYYMMDD() + "\\"+DateTool.getTimeH()+".txt", "【RECV】<--"+DataSwitch.bytesToHexString(data));
+							for(i=0;i<128;i++) {
+								sensors[i].setDefine(false);
+							}
 							SensorCnt = (((DataSwitch.abs(data[11]) * 256) + DataSwitch.abs(data[10])) - 11) / 5;// 数据中包含传感器个数
 							for (i = 0; i < SensorCnt; i++) {
 								for (j = 0; j < 5; j++)
 									sensorBuf[j] = data[20 + 5 * i + j];
-								App.senserFactory.freshSenser(sensors[DataSwitch.abs(sensorBuf[0]) - 1], sensorBuf);
+								App.senserFactory.freshSenser(sensors[i], sensorBuf);
 							}
 							if (App.mainView.getSelectedStation() != null) {
 								if (bean.getIpString()

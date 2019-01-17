@@ -8,8 +8,9 @@ public class Sensor {
 	private Icon linkIcon;
 	private Icon canIcon;
 	private String addrString;
+	private boolean isDefine = false;
 	protected String valueString = "----------";
-	
+
 	public Icon getCanIcon() {
 		return canIcon;
 	}
@@ -17,6 +18,12 @@ public class Sensor {
 		this.canIcon = canIcon;
 	}
 	
+	public boolean isDefine() {
+		return isDefine;
+	}
+	public void setDefine(boolean isDefine) {
+		this.isDefine = isDefine;
+	}
 	public Icon getSensorIcon() {
 		return sensorIcon;
 	}

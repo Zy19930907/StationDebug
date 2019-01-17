@@ -33,7 +33,9 @@ public class SubStationManger {
 	}
 	
 	public void removeStation(SubStation station) {
+		station.close();
 		configBean.removeStation(station.getBean());
+		App.mainView.RemoveNode(station.getBean().getIpString());
 		App.configManager.saveConfig(System.getProperty("user.dir") + "\\Configs\\SubStationConfig.txt",
 				configBean);
 	}
@@ -42,5 +44,4 @@ public class SubStationManger {
 		App.configManager.saveConfig(System.getProperty("user.dir") + "\\Configs\\SubStationConfig.txt",
 				configBean);
 	}
-	
 }

@@ -22,7 +22,7 @@ public class DateTool {
 	public static String getLogFileName(long millis) {
 		return ("["+format1.format(millis)+"]");
 	}
-	public String getTimeH() {
+	public static String getTimeH() {
 		return (format2.format(System.currentTimeMillis()));
 	}
 	public String getTimeHMS() {

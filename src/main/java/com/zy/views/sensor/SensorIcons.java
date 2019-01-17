@@ -10,6 +10,7 @@ public class SensorIcons {
 	public static final Icon can1Icon = new ImageIcon(SensorIcons.class.getResource("/com/zy/imgs/can1.png"));
 	public static final Icon can2Icon = new ImageIcon(SensorIcons.class.getResource("/com/zy/imgs/can2.png"));
 	
+	public static final Icon linkbreakIcon = new ImageIcon(SensorIcons.class.getResource("/com/zy/imgs/linkbreak.png"));
 	public static final Icon noneIcon = new ImageIcon(SensorIcons.class.getResource("/com/zy/imgs/none.png"));
 	public static final Icon undefineIcon = new ImageIcon(SensorIcons.class.getResource("/com/zy/imgs/undefine.png"));
 	public static final Icon cH4Icon = new ImageIcon(SensorIcons.class.getResource("/com/zy/imgs/ch4.png"));
