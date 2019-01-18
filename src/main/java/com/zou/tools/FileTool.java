@@ -1,10 +1,8 @@
 package com.zou.tools;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 
@@ -80,8 +78,6 @@ public class FileTool {
     }
 }
 	public static void saveConfig(String LogFilePath, MusicListBean bean,Gson gson) {
-		BufferedWriter configBufferedWriter;
-		FileWriter configWriter;
 		File logFile = new File(LogFilePath);
 		File fileParent = logFile.getParentFile();
 		
@@ -94,18 +90,7 @@ public class FileTool {
 			}
 		}
 		try {
-			configWriter = new FileWriter(logFile);
-			configBufferedWriter = new BufferedWriter(configWriter);
-			if (configBufferedWriter != null) {
-				configBufferedWriter.write(gson.toJson(bean));
-				configBufferedWriter.flush();
-				configBufferedWriter.close();
-				configBufferedWriter = null;
-			}
-			if (configWriter != null) {
-				configWriter.close();
-				configWriter = null;
-			}
+			FileUtils.writeStringToFile(logFile, gson.toJson(bean), "UTF-8");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -132,7 +117,7 @@ public class FileTool {
 			if(login)
 				config = FileUtils.readFileToString(file,"GB2312");
 			else
-				config = FileUtils.readFileToString(file);
+				config = FileUtils.readFileToString(file,"UTF-8");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -36,6 +36,7 @@ public class SingleBoardCastCtrView extends JFrame {
 		
 		getContentPane().add(singleBoardCtrPanel);
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.getVerticalScrollBar().setUnitIncrement(90);
 		contentPane.add(scrollPane);
 		scrollPane.setViewportView(panel_1);
 		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.Y_AXIS));
