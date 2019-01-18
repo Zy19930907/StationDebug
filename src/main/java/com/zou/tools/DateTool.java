@@ -41,6 +41,6 @@ public class DateTool {
 	}
 	
 	public static String getFileNameYYMMDD(){
-		return  ("["+format6.format(System.currentTimeMillis())+"]");
+		return  (format6.format(System.currentTimeMillis()));
 	}
 }

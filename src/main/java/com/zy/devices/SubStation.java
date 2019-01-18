@@ -104,8 +104,8 @@ public class SubStation {
 				System.getProperty("user.dir") + "\\Logs\\SubStation\\"
 						+ bean.getIpString().substring(0, bean.getIpString().indexOf(":")) + "\\"
 						+ DateTool.getFileNameYYMMDD() + "\\" + DateTool.getTimeH() + ".txt",
-				"【SEND】----->" + DateTool.getTimeHMSS() + DataSwitch.bytesToHexString(heart));
-		if(SentCnt>=4){
+				DateTool.getTimeHMSS() + "【>>SEND>>】" + DataSwitch.bytesToHexString(heart));
+		if (SentCnt >= 4) {
 			App.taskScheduler.deletJob(SubStation.this);
 			close();
 		}
@@ -180,7 +180,7 @@ public class SubStation {
 									System.getProperty("user.dir") + "\\Logs\\SubStation\\"
 											+ bean.getIpString().substring(0, bean.getIpString().indexOf(":")) + "\\"
 											+ DateTool.getFileNameYYMMDD() + "\\" + DateTool.getTimeH() + ".txt",
-									"【RECV】<-----" + DateTool.getTimeHMSS() + DataSwitch.bytesToHexString(data));
+									DateTool.getTimeHMSS() + "【<<RECV<<】" + DataSwitch.bytesToHexString(data));
 							for (i = 0; i < 128; i++) {
 								sensors[i].setDefine(false);
 							}
@@ -192,18 +192,55 @@ public class SubStation {
 								if (sensors[i].getSensorIcon().equals(SensorIcons.boadrCastIcon)) {
 									boardcasts[boardcastCnt++] = sensors[i];
 								}
-								LogRecoder.saveLog_m(System.getProperty("user.dir") + "\\Logs\\SubStation\\"
-										+ bean.getIpString().substring(0, bean.getIpString().indexOf(":")) + "\\"
-										+ DateTool.getFileNameYYMMDD() + "\\" + DateTool.getTimeH() + ".txt",
-										"【记录" + format.format(i + 1) + "】" + "["
-												+ DataSwitch.bytesToHexString(sensorBuf) + "] >>>> "
-												+ sensors[i].getAddrString() + "---" + sensors[i].getValueString());
+								LogRecoder
+										.saveLog_m(
+												System.getProperty("user.dir") + "\\Logs\\SubStation\\"
+														+ bean.getIpString().substring(0,
+																bean.getIpString().indexOf(":"))
+														+ "\\" + DateTool.getFileNameYYMMDD() + "\\"
+														+ DateTool.getTimeH() + ".txt",
+												"【记录" + format.format(i + 1) + "】" + "["
+														+ DataSwitch.bytesToHexString(sensorBuf) + "] ---> "
+														+ sensors[i].getAddrString()
+														+ DataSwitch.getEmp(sensors[i].getAddrString())
+														+ sensors[i].getValueString());
 							}
 							if (App.mainView.getSelectedStation() != null) {
 								if (bean.getIpString()
 										.equals(App.mainView.getSelectedStation().getBean().getIpString()))
 									App.mainView.UpdateCurInfo(SubStation.this);
 							}
+							break;
+
+						case 0x19:
+							guanlianAddrDeal(data);
+							break;
+						case 0x1C:
+							guanlianTypeDeal(data);
+							break;
+
+						case (byte) 0xEA:
+							byte[] senserinfo1 = new byte[600];
+							System.arraycopy(data, 12, senserinfo1, 0, 400);
+							int i, j = 0;
+							for (i = 0; i < 200; i++) {
+								if (senserinfo1[3 * i] != 0) {
+									App.excuteView.table_1
+											.setValueAt(DataSwitch.byteToDecimalString(senserinfo1[3 * i]), j, 1);
+									App.excuteView.table_1.setValueAt(
+											DataSwitch.byteToDecimalString(senserinfo1[3 * i + 1]), j, 2);
+									App.excuteView.table_1.setValueAt(typeFlagTotypeString(senserinfo1[3 * i + 2]), j,
+											3);
+									j++;
+								}
+							}
+							for (; j < 200; j++) {
+								App.excuteView.table_1.setValueAt("----", j, 1);
+								App.excuteView.table_1.setValueAt("----", j, 2);
+								App.excuteView.table_1.setValueAt("----", j, 3);
+							}
+							App.excuteView.setVisible(true);
+							senserinfo1 = null;
 							break;
 						}
 					}
@@ -217,5 +254,35 @@ public class SubStation {
 			linkServer = new LinkServer();
 			linkServer.start();
 		}
+	}
+
+	public void guanlianAddrDeal(byte[] msg) {
+		int addrCnt, i;
+		addrCnt = msg[10] - 3;
+		for (i = 0; i < addrCnt; i++)
+			App.breakerCtrView.table.setValueAt(DataSwitch.abs(msg[i + 12]), i, 0);
+		for (; i < 50; i++)
+			App.breakerCtrView.table.setValueAt("---", i, 0);
+	}
+
+	public void guanlianTypeDeal(byte[] msg) {
+		int typeCnt, i;
+		typeCnt = msg[10] - 3;
+		for (i = 0; i < typeCnt; i++)
+			App.breakerCtrView.table.setValueAt(typeFlagTotypeString((int) msg[i + 12]), i, 1);
+		for (; i < 50; i++)
+			App.breakerCtrView.table.setValueAt("----------", i, 1);
+	}
+
+	public String typeFlagTotypeString(int flag) {
+		int i;
+		String out = "";
+		String[] typeString = new String[] { " 上限断电 ", " 上限报警 ", " 下限断电 ", " 下限报警 ", " 断线闭锁 ", " 0态报警 ", " 1态报警 " };
+		for (i = 0; i < 7; i++) {
+			if ((flag & 0x01) == 0x01)
+				out += typeString[i];
+			flag >>= 1;
+		}
+		return out;
 	}
 }

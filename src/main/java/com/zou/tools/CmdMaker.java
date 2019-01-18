@@ -659,6 +659,30 @@ public class CmdMaker {
 		return crcMaker.CRC16Check(buf, len);
 	}
 	
+	public byte[] getHandCtrCmd(byte addr,byte ctr,byte duandian) {
+		byte[] out = null;
+		for (i = 0; i < 4; i++)
+			cmd[i] = (byte) 0xfe;
+		cmd[i++] = 0x00;
+		cmd[i++] = 0x00;
+		cmd[i++] = 0x12;
+		cmd[i++] = 0x00;
+		cmd[i++] = 0x01;
+		i = 9;
+		cmd[i++] = 0x40;
+		cmd[i++] = 6;
+		cmd[i++] = 0;
+		cmd[i++] = addr;
+		cmd[i++] = ctr;
+		cmd[i++] = duandian;
+		cmd[6] = (byte) (i + 2);
+		cmd[7] = 0;
+		crcMaker.setCrc(cmd, i + 2);
+		out = new byte[i + 2];
+		System.arraycopy(cmd, 0, out, 0, out.length);
+		return out;
+	}
+	
 	public byte[] getBoardCastGroupConfigCmd(long[][] config) {
 		byte[] out = null;
 		long configL,configH;
@@ -728,6 +752,27 @@ public class CmdMaker {
 		cmd[i++] = 0x00;
 		cmd[i++] = boardCastAddr;
 		cmd[i++] = volum;
+		cmd[i++] = 0x00;
+		cmd[6] = (byte) (i + 2);
+		cmd[7] = 0;
+		crcMaker.setCrc(cmd, i + 2);
+		out = new byte[i + 2];
+		System.arraycopy(cmd, 0, out, 0, out.length);
+		return out;
+	}
+	
+	public byte[] getExcuteInfoCmd() {
+		byte[] out = null;
+		for (i = 0; i < 4; i++)
+			cmd[i] = (byte) 0xfe;
+		cmd[i++] = 0x00;
+		cmd[i++] = 0x01;
+		cmd[i++] = 0x00;
+		cmd[i++] = 0x00;
+		cmd[i++] = 0x01;
+		i = 9;
+		cmd[i++] = (byte) 0xEA;
+		cmd[i++] = 0x00;
 		cmd[i++] = 0x00;
 		cmd[6] = (byte) (i + 2);
 		cmd[7] = 0;

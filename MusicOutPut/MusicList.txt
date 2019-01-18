@@ -1,0 +1,64 @@
+{
+  "musicBeans": [
+    {
+      "index": 1,
+      "musicName": "周笔畅 - 最美的期待.mp3"
+    },
+    {
+      "index": 2,
+      "musicName": "张杰 - 三生三世.mp3"
+    },
+    {
+      "index": 3,
+      "musicName": "张杰 - 浮诛.mp3"
+    },
+    {
+      "index": 4,
+      "musicName": "杨宗纬 _ 张碧晨 - 凉凉.mp3"
+    },
+    {
+      "index": 5,
+      "musicName": "王筝 - 越单纯越幸福.mp3"
+    },
+    {
+      "index": 6,
+      "musicName": "许嵩 - 半城烟沙.mp3"
+    },
+    {
+      "index": 7,
+      "musicName": "许嵩 - 在那不遥远的地方.mp3"
+    },
+    {
+      "index": 8,
+      "musicName": "许嵩 - 天龙八部之宿敌.mp3"
+    },
+    {
+      "index": 9,
+      "musicName": "许嵩 - 如果当时.mp3"
+    },
+    {
+      "index": 10,
+      "musicName": "许嵩 - 庐州月.mp3"
+    },
+    {
+      "index": 11,
+      "musicName": "许嵩 - 断桥残雪.mp3"
+    },
+    {
+      "index": 12,
+      "musicName": "许嵩 - 有何不可.mp3"
+    },
+    {
+      "index": 13,
+      "musicName": "许嵩 - 白马非马.mp3"
+    },
+    {
+      "index": 14,
+      "musicName": "郁可唯 - 思慕.mp3"
+    },
+    {
+      "index": 15,
+      "musicName": "郁可唯 - 青衣谣.mp3"
+    }
+  ]
+}

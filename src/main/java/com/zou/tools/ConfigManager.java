@@ -1,8 +1,6 @@
 package com.zou.tools;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
@@ -12,8 +10,8 @@ import com.google.gson.GsonBuilder;
 import com.zy.beans.StationConfigBean;
 
 public class ConfigManager {
-	private BufferedWriter configBufferedWriter = null;
-	private FileWriter configWriter;
+//	private BufferedWriter configBufferedWriter = null;
+//	private FileWriter configWriter;
 	private GsonBuilder gsonBuilder;
 	Gson gson;
 
@@ -36,18 +34,19 @@ public class ConfigManager {
 			}
 		}
 		try {
-			configWriter = new FileWriter(logFile);
-			configBufferedWriter = new BufferedWriter(configWriter);
-			if (configBufferedWriter != null) {
-				configBufferedWriter.write(log);
-				configBufferedWriter.flush();
-				configBufferedWriter.close();
-				configBufferedWriter = null;
-			}
-			if (configWriter != null) {
-				configWriter.close();
-				configWriter = null;
-			}
+//			configWriter = new FileWriter(logFile);
+//			configBufferedWriter = new BufferedWriter(configWriter);
+//			if (configBufferedWriter != null) {
+//				configBufferedWriter.write(log);
+//				configBufferedWriter.flush();
+//				configBufferedWriter.close();
+//				configBufferedWriter = null;
+//			}
+//			if (configWriter != null) {
+//				configWriter.close();
+//				configWriter = null;
+//			}
+			FileUtils.writeStringToFile(logFile, log, "UTF-8",false);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -65,18 +64,19 @@ public class ConfigManager {
 			}
 		}
 		try {
-			configWriter = new FileWriter(logFile);
-			configBufferedWriter = new BufferedWriter(configWriter);
-			if (configBufferedWriter != null) {
-				configBufferedWriter.write(gson.toJson(bean));
-				configBufferedWriter.flush();
-				configBufferedWriter.close();
-				configBufferedWriter = null;
-			}
-			if (configWriter != null) {
-				configWriter.close();
-				configWriter = null;
-			}
+//			configWriter = new FileWriter(logFile);
+//			configBufferedWriter = new BufferedWriter(configWriter);
+//			if (configBufferedWriter != null) {
+//				configBufferedWriter.write(gson.toJson(bean));
+//				configBufferedWriter.flush();
+//				configBufferedWriter.close();
+//				configBufferedWriter = null;
+//			}
+//			if (configWriter != null) {
+//				configWriter.close();
+//				configWriter = null;
+//			}
+			FileUtils.writeStringToFile(logFile, gson.toJson(bean), "UTF-8",false);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

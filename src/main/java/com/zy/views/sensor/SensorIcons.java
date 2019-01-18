@@ -33,4 +33,7 @@ public class SensorIcons {
 	
 	public static final Icon wavIcon = new ImageIcon(SensorIcons.class.getResource("/com/zy/imgs/wav.png"));
 	public static final Icon mp3Icon = new ImageIcon(SensorIcons.class.getResource("/com/zy/imgs/mp3.png"));
+	
+	public static final Icon breakPowerIcon = new ImageIcon(SensorIcons.class.getResource("/com/zy/imgs/handctr.png"));
+	public static final Icon repowerICON = new ImageIcon(SensorIcons.class.getResource("/com/zy/imgs/repower.png"));
 }

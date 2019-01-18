@@ -17,10 +17,12 @@ import com.zy.devices.SubStationManger;
 import com.zy.net.UdpSender;
 import com.zy.quartz.scheduler.TimeTaskScheduler;
 import com.zy.views.AddStationView;
+import com.zy.views.ExcuteView;
 import com.zy.views.MainView;
 import com.zy.views.SingleBoardCastCtrView;
 import com.zy.views.StationListView;
 import com.zy.views.groupconfig.GroupConfigView;
+import com.zy.views.sensor.BreakerCtrView;
 import com.zy.views.sensor.SenserFactory;
 
 public class App {
@@ -29,6 +31,8 @@ public class App {
 	public static GroupConfigView groupConfigView;
 	public static StationListView stationListView;
 	public static SingleBoardCastCtrView singleBoardCastCtrView;
+	public static BreakerCtrView breakerCtrView;
+	public static ExcuteView excuteView;
 	public static SubStationManger stationManger = new SubStationManger();
 	public static UdpSender udpSender = new UdpSender();
 	public static ConfigManager configManager = new ConfigManager();
@@ -66,6 +70,8 @@ public class App {
 						stationListView = new StationListView();
 						groupConfigView = new GroupConfigView();
 						singleBoardCastCtrView = new SingleBoardCastCtrView();
+						breakerCtrView = new BreakerCtrView();
+						excuteView = new ExcuteView();
 					}
 				})).start();
 			}

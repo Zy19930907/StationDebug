@@ -18,6 +18,7 @@ import com.google.gson.JsonSyntaxException;
 import com.zy.beans.BootBean;
 
 import StationDebug.App;
+import java.awt.Toolkit;
 public class StationListView extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -30,6 +31,7 @@ public class StationListView extends JFrame {
 	private JTable table;
 	private JPanel panel;
 	public StationListView() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(StationListView.class.getResource("/com/zy/imgs/serch.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1139, 720);
 		contentPane = new JPanel();

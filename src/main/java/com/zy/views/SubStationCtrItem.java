@@ -14,7 +14,7 @@ public class SubStationCtrItem extends JPopupMenu{
 	private static final long serialVersionUID = 1L;
 	private JMenuItem delStation = new JMenuItem("删除分站");
 	private JMenuItem disLinkItem = new JMenuItem("断开连接");
-	private JMenuItem lookInfoItem = new JMenuItem("查看分站信息");
+	private JMenuItem lookInfoItem = new JMenuItem("查询分站关联信息");
 	private JMenuItem configGroupItem = new JMenuItem("配置广播组");
 	
 	public SubStationCtrItem() {
@@ -32,6 +32,13 @@ public class SubStationCtrItem extends JPopupMenu{
 		disLinkItem.setFont(App.font);
 		add(disLinkItem);
 		lookInfoItem.setIcon(new ImageIcon(SubStationCtrItem.class.getResource("/com/zy/imgs/serch.png")));
+		lookInfoItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				App.mainView.getSelectedStation().send(App.cmdMaker.getExcuteInfoCmd());
+			}
+		});
 		lookInfoItem.setFont(App.font);
 		add(lookInfoItem);
 		configGroupItem.setIcon(new ImageIcon(SubStationCtrItem.class.getResource("/com/zy/imgs/group.png")));

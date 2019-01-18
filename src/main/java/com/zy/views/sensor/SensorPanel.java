@@ -29,6 +29,9 @@ public class SensorPanel extends JPanel{
 					if(sensor.getSensorIcon().equals(SensorIcons.boadrCastIcon)) {
 						App.singleBoardCastCtrView.setBardCast(sensor);
 						App.singleBoardCastCtrView.setVisible(true);
+					}else if(sensor.getSensorIcon().equals(SensorIcons.breakerIcon)) {
+						App.breakerCtrView.SetBreaker(sensor);
+						App.breakerCtrView.setVisible(true);
 					}
 				}
 			}
@@ -69,6 +72,12 @@ public class SensorPanel extends JPanel{
 		textField.setBounds(1, 1, 323, 78);
 		add(textField);
 		textField.setColumns(10);
+		
+		imgBtn.setVisible(false);
+		addr.setVisible(false);
+		canIcon.setVisible(false);
+		linkIcon.setVisible(false);
+		listenValue.setVisible(false);
 	}
 	
 	public void upDateSensor(Sensor sensor) {

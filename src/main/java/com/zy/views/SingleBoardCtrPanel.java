@@ -23,7 +23,7 @@ import StationDebug.App;
 public class SingleBoardCtrPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	JSlider slider = new JSlider();
-	JLabel volumlabel = new JLabel("   ");
+	JLabel volumlabel = new JLabel("  ");
 	public SingleBoardCtrPanel() {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
@@ -55,8 +55,12 @@ public class SingleBoardCtrPanel extends JPanel {
 		btnNewButton_3.setIcon(new ImageIcon(SingleBoardCtrPanel.class.getResource("/com/zy/imgs/nextMusic.png")));
 		btnNewButton_3.setAlignmentX(Component.CENTER_ALIGNMENT);
 		add(btnNewButton_3);
+		
+		JLabel label = new JLabel("        ");
+		add(label);
 
 		JLabel label_5 = new JLabel("  ");
+		label_5.setIcon(new ImageIcon(SingleBoardCtrPanel.class.getResource("/com/zy/imgs/volumde.png")));
 		add(label_5);
 		
 		slider.addMouseListener(new MouseListener() {
@@ -101,7 +105,14 @@ public class SingleBoardCtrPanel extends JPanel {
 				volumlabel.setText(String.valueOf(slider.getValue()));
 			}
 		});
+		
+		JLabel label_4 = new JLabel("");
+		add(label_4);
 		add(slider);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(SingleBoardCtrPanel.class.getResource("/com/zy/imgs/volumadd.png")));
+		add(lblNewLabel);
 		
 		volumlabel.setFont(App.font);
 		add(volumlabel);
@@ -113,6 +124,7 @@ public class SingleBoardCtrPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				FileTool.ChooseDir();
+				App.singleBoardCastCtrView.freshMusic(FileTool.readMusicListBean(false));
 			}
 		});
 		
@@ -120,21 +132,6 @@ public class SingleBoardCtrPanel extends JPanel {
 		add(label_6);
 		btnNewButton_4.setIcon(new ImageIcon(SingleBoardCtrPanel.class.getResource("/com/zy/imgs/switchMusic.png")));
 		add(btnNewButton_4);
-
-		JButton btnNewButton_5 = new JButton("");
-		btnNewButton_5.setToolTipText("加载歌曲列表");
-		btnNewButton_5.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				App.singleBoardCastCtrView.freshMusic(FileTool.readMusicListBean(false));
-			}
-		});
-
-		JLabel label_4 = new JLabel("  ");
-		add(label_4);
-		btnNewButton_5.setIcon(new ImageIcon(SingleBoardCtrPanel.class.getResource("/com/zy/imgs/loadMusic.png")));
-		add(btnNewButton_5);
 	}
 	public void showVolum(int volum) {
 		slider.setValue(volum);
