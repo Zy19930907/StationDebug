@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -18,18 +17,15 @@ import StationDebug.App;
 public class MusicPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private JTextField musicName;
-	JLabel index = new JLabel("");
 	JButton image = new JButton("");
 	MusicBean bean;
-	private final JLabel label = new JLabel("     ");
-	private final JLabel label_1 = new JLabel("     ");
-	private SimpleDateFormat format = new SimpleDateFormat("SSS");
+	private SimpleDateFormat format = new SimpleDateFormat("SSSSS");
 	public MusicPanel(MusicBean bean) {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		this.bean = bean;
+		image.setToolTipText("\u64AD\u653E");
 		image.setIcon(SensorIcons.mp3Icon);
 		image.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				App.singleBoardCastCtrView.play(bean.getIndex());	
@@ -37,21 +33,13 @@ public class MusicPanel extends JPanel{
 		});
 		add(image);
 		
-		add(label);
-		
-		index.setFont(App.font);
-		add(index);
-		
-		add(label_1);
-		
 		musicName = new JTextField();
 		musicName.setEditable(false);
 		musicName.setFont(App.font);
 		add(musicName);
 		musicName.setColumns(10);
 		
-		musicName.setText(bean.getMusicName());
-		index.setText(format.format(bean.getIndex()));
+		musicName.setText("["+format.format(bean.getIndex())+"] "+bean.getMusicName());
 		if(bean.getMusicName().endsWith("wav") || bean.getMusicName().endsWith("WAV"))
 			image.setIcon(SensorIcons.wavIcon);
 	}

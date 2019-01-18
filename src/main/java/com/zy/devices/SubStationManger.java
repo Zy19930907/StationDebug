@@ -12,7 +12,7 @@ public class SubStationManger {
 		if (!configBean.beanExist(bean)) {
 			configBean.addStation(bean);
 			SubStation station = new SubStation(bean);
-			App.mainView.AddNewNode(bean.getIpString(), station);
+			App.mainView.stationTreePanel.AddNewNode(bean.getIpString(), station);
 			App.configManager.saveConfig(System.getProperty("user.dir") + "\\Configs\\SubStationConfig.txt",
 					configBean);
 		}
@@ -27,7 +27,7 @@ public class SubStationManger {
 		} else {
 			for (int i = 0; i < configBean.getConfiBeans().size(); i++) {
 				SubStation station = new SubStation(configBean.getConfiBeans().get(i));
-				App.mainView.AddNewNode(configBean.getConfiBeans().get(i).getIpString(), station);
+				App.mainView.stationTreePanel.AddNewNode(configBean.getConfiBeans().get(i).getIpString(), station);
 			}
 		}
 	}
@@ -35,7 +35,7 @@ public class SubStationManger {
 	public void removeStation(SubStation station) {
 		station.close();
 		configBean.removeStation(station.getBean());
-		App.mainView.RemoveNode(station.getBean().getIpString());
+		App.mainView.stationTreePanel.RemoveNode(station.getBean().getIpString());
 		App.configManager.saveConfig(System.getProperty("user.dir") + "\\Configs\\SubStationConfig.txt",
 				configBean);
 	}

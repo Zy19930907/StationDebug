@@ -37,7 +37,7 @@ public class SubStation {
 	private volatile Sensor[] sensors = new Sensor[128];
 	private volatile Sensor[] boardcasts = new Sensor[128];
 	private volatile int boardcastCnt = 0;
-	private SimpleDateFormat format = new SimpleDateFormat("SSS");
+	private SimpleDateFormat format = new SimpleDateFormat("SSSSS");
 
 	public Sensor[] getSensors() {
 		return sensors;
@@ -205,9 +205,9 @@ public class SubStation {
 														+ DataSwitch.getEmp(sensors[i].getAddrString())
 														+ sensors[i].getValueString());
 							}
-							if (App.mainView.getSelectedStation() != null) {
+							if (App.mainView.stationTreePanel.getSelectedStation() != null) {
 								if (bean.getIpString()
-										.equals(App.mainView.getSelectedStation().getBean().getIpString()))
+										.equals(App.mainView.stationTreePanel.getSelectedStation().getBean().getIpString()))
 									App.mainView.UpdateCurInfo(SubStation.this);
 							}
 							break;

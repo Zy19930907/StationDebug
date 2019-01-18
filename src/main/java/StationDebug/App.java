@@ -79,7 +79,6 @@ public class App {
 		try {
 			Thread.sleep(2500);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		stationManger.AddSubStationFromConfig();

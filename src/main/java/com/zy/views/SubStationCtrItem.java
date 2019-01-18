@@ -23,7 +23,7 @@ public class SubStationCtrItem extends JPopupMenu{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				App.stationManger.removeStation(App.mainView.getSelectedStation());
+				App.stationManger.removeStation(App.mainView.stationTreePanel.getSelectedStation());
 			}
 		});
 		delStation.setFont(App.font);
@@ -36,7 +36,7 @@ public class SubStationCtrItem extends JPopupMenu{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				App.mainView.getSelectedStation().send(App.cmdMaker.getExcuteInfoCmd());
+				App.mainView.stationTreePanel.getSelectedStation().send(App.cmdMaker.getExcuteInfoCmd());
 			}
 		});
 		lookInfoItem.setFont(App.font);

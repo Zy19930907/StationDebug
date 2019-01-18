@@ -54,7 +54,7 @@ public class GroupConfigView extends JFrame {
 					flagH |= (panels[i+8].getSelectFlag() << (i*8));
 				}
 				station.getBean().setGroup(index, flagL, flagH);
-				App.mainView.getSelectedStation().send(App.cmdMaker.getBoardCastGroupConfigCmd(App.mainView.getSelectedStation().getBean().getGroupConfig()));
+				App.mainView.stationTreePanel.getSelectedStation().send(App.cmdMaker.getBoardCastGroupConfigCmd(App.mainView.stationTreePanel.getSelectedStation().getBean().getGroupConfig()));
 				App.stationManger.upDateConfig();
 			}
 		});
@@ -69,7 +69,7 @@ public class GroupConfigView extends JFrame {
 		}
 	}
 	public void freshSubStation(int group) {
-		station = App.mainView.getSelectedStation();
+		station = App.mainView.stationTreePanel.getSelectedStation();
 		for(int i=0;i<8;i++) {
 			panels[i].setSelect((int)((station.getBean().getGroupConfig()[group][0] >> (i*8)) & 0xFF));
 			panels[i+8].setSelect((int)((station.getBean().getGroupConfig()[group][1] >> (i*8)) & 0xFF));
