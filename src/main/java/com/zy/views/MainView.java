@@ -24,7 +24,7 @@ public class MainView extends JFrame {
 	public StationTreePanel stationTreePanel = new StationTreePanel();
 	public MainView() {
 		setResizable(false);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MainView.class.getResource("/com/zy/imgs/smog.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainView.class.getResource("/com/zy/imgs/station.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1680, 980);
 		setTitle("综合分站测试工具-T0.0.2");
