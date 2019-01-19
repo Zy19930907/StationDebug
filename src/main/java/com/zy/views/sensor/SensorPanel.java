@@ -53,7 +53,7 @@ public class SensorPanel extends JPanel{
 		addr = new JTextField();
 		addr.setHorizontalAlignment(SwingConstants.CENTER);
 		addr.setEditable(false);
-		addr.setFont(App.font18);
+		addr.setFont(App.font16);
 		addr.setBounds(168, 4, 151, 32);
 		add(addr);
 		addr.setColumns(10);
@@ -61,7 +61,7 @@ public class SensorPanel extends JPanel{
 		listenValue = new JTextField();
 		listenValue.setHorizontalAlignment(SwingConstants.CENTER);
 		listenValue.setEditable(false);
-		listenValue.setFont(App.font18);
+		listenValue.setFont(App.font16);
 		listenValue.setBounds(84, 42, 235, 32);
 		add(listenValue);
 		listenValue.setColumns(10);

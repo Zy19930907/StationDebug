@@ -53,7 +53,7 @@ public class ExcuteView extends JFrame {
 		table_1.getColumnModel().getColumn(1).setMinWidth(80);
 		table_1.getColumnModel().getColumn(2).setMaxWidth(80);
 		table_1.getColumnModel().getColumn(2).setMinWidth(80);
-		table_1.getTableHeader().setFont(App.font18);
+		table_1.getTableHeader().setFont(App.font16);
 		table_1.setFont(App.font);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
 		scrollPane = new JScrollPane();

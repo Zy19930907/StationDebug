@@ -19,7 +19,7 @@ import com.zy.quartz.scheduler.TimeTaskScheduler;
 import com.zy.views.AddStationView;
 import com.zy.views.ExcuteView;
 import com.zy.views.MainView;
-import com.zy.views.SingleBoardCastCtrView;
+import com.zy.views.singleboardcast.SingleBoardCastCtrView;
 import com.zy.views.StationListView;
 import com.zy.views.groupconfig.GroupConfigView;
 import com.zy.views.sensor.BreakerCtrView;
@@ -37,7 +37,7 @@ public class App {
 	public static UdpSender udpSender = new UdpSender();
 	public static ConfigManager configManager = new ConfigManager();
 	public static final Font font = new Font("宋体", Font.BOLD, 24);
-	public static final Font font18 = new Font("宋体", Font.BOLD, 16);
+	public static final Font font16 = new Font("宋体", Font.BOLD, 16);
 	public static CmdMaker cmdMaker = new CmdMaker();
 	public static CrcMaker crcMaker = new CrcMaker();
 	public static TimeTaskScheduler taskScheduler;
@@ -77,7 +77,7 @@ public class App {
 			}
 		});
 		try {
-			Thread.sleep(2500);
+			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

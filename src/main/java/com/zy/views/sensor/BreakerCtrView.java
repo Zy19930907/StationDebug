@@ -55,7 +55,7 @@ public class BreakerCtrView extends JFrame {
 		int i=0;
 		for(i=0;i<50;i++)
 			table.setRowHeight(i, 36);
-		table.getTableHeader().setFont(App.font18);
+		table.getTableHeader().setFont(App.font16);
 		table.setFont(App.font);
 		scrollPane.setViewportView(table);
 		
