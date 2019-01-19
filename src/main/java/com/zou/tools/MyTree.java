@@ -1,5 +1,7 @@
 package com.zou.tools;
 
+import StationDebug.App;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,18 +15,18 @@ import javax.swing.tree.TreePath;
 public class MyTree extends JTree{
 	private static final long serialVersionUID = 1L;
 	DefaultMutableTreeNode rootNode;
-	DefaultTreeCellRenderer render = new DefaultTreeCellRenderer();
 	private List<NodeObject> nodeObjects = new ArrayList<NodeObject>();
 	@Override
 	public void setModel(TreeModel newModel) {
 		super.setModel(newModel);
 	}
-	
+
 	public MyTree(String rootString) {
 		rootNode = new DefaultMutableTreeNode(rootString);
+		setRowHeight(30);
 		setModel(new DefaultTreeModel(rootNode, true));
 	}
-	
+
 	public void AddNode(String nString,Object userObject) {
 		NodeObject object = new NodeObject();
 		DefaultMutableTreeNode node = new DefaultMutableTreeNode(nString);
@@ -38,7 +40,7 @@ public class MyTree extends JTree{
 			updateUI();
 		}
 	}
-	
+
 	public void removeNode(String nodeString) {
 		int i;
 		for(i=0;i<nodeObjects.size();i++) {
@@ -50,7 +52,7 @@ public class MyTree extends JTree{
 			}
 		}
 	}
-	
+
 	public Object getSelectObject() {
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode)getLastSelectedPathComponent();
 		for(NodeObject object : nodeObjects) {
@@ -59,11 +61,11 @@ public class MyTree extends JTree{
 		}
 		return null;
 	}
-	
+
 	private boolean hasNode(String noString) {
 		int i;
 		for(i=0;i<nodeObjects.size();i++) {
-			if(nodeObjects.get(i).getNodeString().equals(noString)) 
+			if(nodeObjects.get(i).getNodeString().equals(noString))
 				return true;
 		}
 		return false;

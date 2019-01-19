@@ -7,24 +7,24 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="jdk" jdkName="11" jdkType="JavaSDK" />
+    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/substance-4.3.jar!/" />
+          <root url="jar://$MODULE_DIR$/beautyeye_lnf.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" scope="TEST" name="Maven: junit:junit:3.8.1" level="project" />
-    <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.2" level="project" />
-    <orderEntry type="library" name="Maven: commons-io:commons-io:2.4" level="project" />
-    <orderEntry type="library" name="Maven: org.quartz-scheduler:quartz:2.3.0" level="project" />
-    <orderEntry type="library" name="Maven: com.mchange:c3p0:0.9.5.2" level="project" />
-    <orderEntry type="library" name="Maven: com.mchange:mchange-commons-java:0.2.11" level="project" />
-    <orderEntry type="library" name="Maven: com.zaxxer:HikariCP-java6:2.3.13" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.7" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="Maven: junit:junit:3.8.1" level="project" />
+    <orderEntry type="library" exported="" name="Maven: com.google.code.gson:gson:2.8.2" level="project" />
+    <orderEntry type="library" exported="" name="Maven: commons-io:commons-io:2.4" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.quartz-scheduler:quartz:2.3.0" level="project" />
+    <orderEntry type="library" exported="" name="Maven: com.mchange:c3p0:0.9.5.2" level="project" />
+    <orderEntry type="library" exported="" name="Maven: com.mchange:mchange-commons-java:0.2.11" level="project" />
+    <orderEntry type="library" exported="" name="Maven: com.zaxxer:HikariCP-java6:2.3.13" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.slf4j:slf4j-api:1.7.7" level="project" />
   </component>
 </module>

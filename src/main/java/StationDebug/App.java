@@ -2,13 +2,7 @@ package StationDebug;
 
 import java.awt.Font;
 
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
-import org.jvnet.substance.SubstanceLookAndFeel;
+import javax.swing.*;
 
 import com.zou.tools.CmdMaker;
 import com.zou.tools.ConfigManager;
@@ -24,63 +18,44 @@ import com.zy.views.StationListView;
 import com.zy.views.groupconfig.GroupConfigView;
 import com.zy.views.sensor.BreakerCtrView;
 import com.zy.views.sensor.SenserFactory;
+import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
 
 public class App {
-	public static MainView mainView;
-	public static AddStationView addStationView;
-	public static GroupConfigView groupConfigView;
-	public static StationListView stationListView;
-	public static SingleBoardCastCtrView singleBoardCastCtrView;
-	public static BreakerCtrView breakerCtrView;
-	public static ExcuteView excuteView;
-	public static SubStationManger stationManger = new SubStationManger();
-	public static UdpSender udpSender = new UdpSender();
-	public static ConfigManager configManager = new ConfigManager();
-	public static final Font font = new Font("宋体", Font.BOLD, 24);
-	public static final Font font16 = new Font("宋体", Font.BOLD, 16);
-	public static CmdMaker cmdMaker = new CmdMaker();
-	public static CrcMaker crcMaker = new CrcMaker();
-	public static TimeTaskScheduler taskScheduler;
-	public static SenserFactory senserFactory = new SenserFactory();
-	
-	public static void main(String[] args) {
+    public static MainView mainView;
+    public static AddStationView addStationView;
+    public static GroupConfigView groupConfigView;
+    public static StationListView stationListView;
+    public static SingleBoardCastCtrView singleBoardCastCtrView;
+    public static BreakerCtrView breakerCtrView;
+    public static ExcuteView excuteView;
+    public static SubStationManger stationManger = new SubStationManger();
+    public static UdpSender udpSender = new UdpSender();
+    public static ConfigManager configManager = new ConfigManager();
+    public static final Font font = new Font("微软雅黑", Font.BOLD, 24);
+    public static final Font font16 = new Font("微软雅黑", Font.BOLD, 16);
+    public static CmdMaker cmdMaker = new CmdMaker();
+    public static CrcMaker crcMaker = new CrcMaker();
+    public static TimeTaskScheduler taskScheduler;
+    public static SenserFactory senserFactory = new SenserFactory();
 
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				new Thread((new Runnable() {
-					@Override
-					public void run() {
-						try {
-							UIManager.setLookAndFeel("org.jvnet.substance.skin.SubstanceBusinessBlackSteelLookAndFeel");
-							SubstanceLookAndFeel.setCurrentTheme("org.jvnet.substance.theme.BusinessBlackSteelSkin");
-							SubstanceLookAndFeel
-									.setCurrentWatermark("org.jvnet.substance.watermark.SubstanceNoneWatermark");
-							SubstanceLookAndFeel
-									.setCurrentGradientPainter("org.jvnet.substance.painter.StandardGradientPainter");
-							JFrame.setDefaultLookAndFeelDecorated(true);
-							JDialog.setDefaultLookAndFeelDecorated(true);
-						} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-								| UnsupportedLookAndFeelException e) {
-							e.printStackTrace();
-						}
-						taskScheduler = new TimeTaskScheduler();
-						mainView = new MainView();
-						addStationView = new AddStationView();
-						stationListView = new StationListView();
-						groupConfigView = new GroupConfigView();
-						singleBoardCastCtrView = new SingleBoardCastCtrView();
-						breakerCtrView = new BreakerCtrView();
-						excuteView = new ExcuteView();
-					}
-				})).start();
-			}
-		});
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		stationManger.AddSubStationFromConfig();
-	}
+    public static void main(String[] args) {
+
+        try {
+            System.setProperty("sun.java2d.noddraw", "true");
+            UIManager.put("RootPane.setupButtonVisible", false);
+            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.generalNoTranslucencyShadow;
+            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+        } catch (Exception e) {
+            //TODO exception
+        }
+        taskScheduler = new TimeTaskScheduler();
+        mainView = new MainView();
+        addStationView = new AddStationView();
+        stationListView = new StationListView();
+        groupConfigView = new GroupConfigView();
+        singleBoardCastCtrView = new SingleBoardCastCtrView();
+        breakerCtrView = new BreakerCtrView();
+        excuteView = new ExcuteView();
+        stationManger.AddSubStationFromConfig();
+    }
 }

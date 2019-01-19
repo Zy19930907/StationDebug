@@ -3,10 +3,7 @@ package com.zy.views;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-import javax.swing.BoxLayout;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import com.zy.devices.SubStation;
@@ -26,7 +23,7 @@ public class MainView extends JFrame {
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainView.class.getResource("/com/zy/imgs/station.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1680, 980);
+		setBounds(100, 100, 1715, 980);
 		setTitle("综合分站测试工具-T0.0.2");
 		setLocationRelativeTo(null);// 窗体居中显示
 		contentPane = new JPanel();
@@ -40,7 +37,7 @@ public class MainView extends JFrame {
 		getContentPane().add(stationTreePanel);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(327, 5, 1337, 937);
+		scrollPane.setBounds(327, 5, 1375, 937);
 		panel.setBounds(0, 0, 0, 0);
 		panel.setPreferredSize(new Dimension(scrollPane.getWidth() - 32, 85 * 32));
 		scrollPane.getVerticalScrollBar().setUnitIncrement(85);
@@ -54,7 +51,7 @@ public class MainView extends JFrame {
 			panel.add(sensorColumPanel);
 			sensorColumPanels[i] = sensorColumPanel;
 		}
-		
+
 		setVisible(true);
 	}
 

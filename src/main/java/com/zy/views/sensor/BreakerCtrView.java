@@ -28,7 +28,7 @@ public class BreakerCtrView extends JFrame {
 	DefaultTableCellRenderer r = new DefaultTableCellRenderer();
 	private Object[][] actInfo = new Object[50][2];
 	private DefaultTableModel wornInfoModel;
-	private GetLinkInfo getLinkInfo = new GetLinkInfo();
+	private GetLinkInfo getLinkInfo;
 	public BreakerCtrView() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(BreakerCtrView.class.getResource("/com/zy/imgs/breaker.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -64,6 +64,8 @@ public class BreakerCtrView extends JFrame {
 	public void SetBreaker(Sensor breaker) {
 		this.breaker = breaker;
 		setTitle(breaker.getAddrString());
+		getLinkInfo = null;
+		getLinkInfo = new GetLinkInfo();
 		getLinkInfo.start();
 	}
 	

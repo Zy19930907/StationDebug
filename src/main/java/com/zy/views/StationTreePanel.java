@@ -22,7 +22,7 @@ import java.awt.GridLayout;
 
 public class StationTreePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private MyTree stationTree = new MyTree("综合分站       ");
+	private MyTree stationTree = new MyTree("综合分站                  ");
 	TreePath path;
 	private SubStationItem stationItem = new SubStationItem();
 	private SubStationCtrItem stationCtrItem = new SubStationCtrItem();

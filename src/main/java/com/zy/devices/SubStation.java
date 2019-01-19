@@ -37,7 +37,7 @@ public class SubStation {
     private volatile Sensor[] sensors = new Sensor[128];
     private volatile Sensor[] boardcasts = new Sensor[128];
     private volatile int boardcastCnt = 0;
-    private SimpleDateFormat format = new SimpleDateFormat("SSSSS");
+    private SimpleDateFormat format = new SimpleDateFormat("SSS");
 
     public Sensor[] getSensors() {
         return sensors;

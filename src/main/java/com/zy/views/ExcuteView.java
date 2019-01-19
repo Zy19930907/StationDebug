@@ -39,7 +39,7 @@ public class ExcuteView extends JFrame {
 		table_1.setBounds(10, 52, 564, 130);
 		table_1.setRowSelectionAllowed(false);
 		table_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table_1.setFont(new Font("宋体", Font.PLAIN, 12));
+		table_1.setFont(App.font16);
 		table_1.setDefaultRenderer(Object.class, r);
 		table_1.setModel(wornInfoModel);
 		int i=0;

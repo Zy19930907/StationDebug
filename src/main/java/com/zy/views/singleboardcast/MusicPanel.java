@@ -1,4 +1,4 @@
-package com.zy.views;
+package com.zy.views.singleboardcast;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,7 +23,7 @@ public class MusicPanel extends JPanel{
 	public MusicPanel(MusicBean bean) {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		this.bean = bean;
-		image.setToolTipText("\u64AD\u653E");
+		image.setToolTipText("播放");
 		image.setIcon(SensorIcons.mp3Icon);
 		image.addActionListener(new ActionListener() {
 			@Override
