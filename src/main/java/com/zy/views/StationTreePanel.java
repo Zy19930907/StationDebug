@@ -26,6 +26,16 @@ public class StationTreePanel extends JPanel {
 	TreePath path;
 	private SubStationItem stationItem = new SubStationItem();
 	private SubStationCtrItem stationCtrItem = new SubStationCtrItem();
+
+    public SubStation getSubStation() {
+        return subStation;
+    }
+
+    public void setSubStation(SubStation subStation) {
+        this.subStation = subStation;
+    }
+
+    private SubStation subStation;
 	
 	public StationTreePanel() {
 		setLayout(new GridLayout(0, 1, 0, 0));
@@ -35,10 +45,13 @@ public class StationTreePanel extends JPanel {
 		scrollPane.setViewportView(stationTree);
 		// 设备树控件
 		stationTree.setFont(App.font);
+
 		stationTree.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				super.mousePressed(e);
+				if(stationTree.getSelectObject()!=null)
+				    subStation = (SubStation) stationTree.getSelectObject();
 				if (SwingUtilities.isRightMouseButton(e)) {
 					path = stationTree.getPathForLocation(e.getX(), e.getY());
 					stationTree.setSelectionPath(path);
@@ -63,6 +76,6 @@ public class StationTreePanel extends JPanel {
 	}
 
 	public SubStation getSelectedStation() {
-		return (SubStation) stationTree.getSelectObject();
+		return subStation;
 	}
 }

@@ -28,6 +28,7 @@ public class SubStationManger {
 			for (int i = 0; i < configBean.getConfiBeans().size(); i++) {
 				SubStation station = new SubStation(configBean.getConfiBeans().get(i));
 				App.mainView.stationTreePanel.AddNewNode(configBean.getConfiBeans().get(i).getIpString(), station);
+				App.mainView.stationTreePanel.setSubStation(station);
 			}
 		}
 	}

@@ -42,7 +42,7 @@ public class SubStationItem extends JPopupMenu {
 				jString = gson.toJson(bean);
 				try {
 					cmd = jString.getBytes("GB2312");
-					App.udpSender.SendUdp(cmd, "255.255.255.255");// 发送UDP广播
+					App.udpSender.SendUdp(cmd, "192.168.1.255");// 发送UDP广播
 				} catch (UnsupportedEncodingException e1) {
 					e1.printStackTrace();
 				}
