@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import StationDebug.App;
 import com.zy.devices.SubStation;
 import com.zy.views.sensor.SensorColumPanel;
 import java.awt.Component;
@@ -21,6 +22,8 @@ public class MainView extends JFrame {
 	public StationTreePanel stationTreePanel = new StationTreePanel();
 	public MainView() {
 		setResizable(false);
+		setUndecorated(true);
+		setFocusableWindowState(true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainView.class.getResource("/com/zy/imgs/station.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1715, 980);
@@ -57,6 +60,6 @@ public class MainView extends JFrame {
 
 	public void UpdateCurInfo(SubStation station) {
 		for (i = 0; i < 32; i++)
-			sensorColumPanels[i].upDateSensor(station.getSensors(), page);
+			sensorColumPanels[i].upDateSensor(station.getSensors());
 	}
 }

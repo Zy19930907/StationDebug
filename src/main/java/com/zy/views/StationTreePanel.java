@@ -43,7 +43,7 @@ public class StationTreePanel extends JPanel {
 					path = stationTree.getPathForLocation(e.getX(), e.getY());
 					stationTree.setSelectionPath(path);
 					if (path != null) {
-						if (path.getLastPathComponent().toString().equals("综合分站       ")) {
+						if (path.getLastPathComponent().toString().equals("综合分站                  ")) {
 							stationItem.show(stationTree, e.getX(), e.getY());
 						} else {
 							stationCtrItem.show(stationTree, e.getX(), e.getY());

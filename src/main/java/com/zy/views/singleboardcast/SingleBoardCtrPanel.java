@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -24,6 +25,7 @@ public class SingleBoardCtrPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	JSlider slider = new JSlider();
 	JLabel volumlabel = new JLabel("  ");
+	private SimpleDateFormat format = new SimpleDateFormat("SSS");
 	public SingleBoardCtrPanel() {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
@@ -102,7 +104,7 @@ public class SingleBoardCtrPanel extends JPanel {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				volumlabel.setText(String.valueOf(slider.getValue()));
+				volumlabel.setText(format.format(slider.getValue()));
 			}
 		});
 		
@@ -135,6 +137,6 @@ public class SingleBoardCtrPanel extends JPanel {
 	}
 	public void showVolum(int volum) {
 		slider.setValue(volum);
-		volumlabel.setText(String.valueOf(volum));
+		volumlabel.setText(format.format(volum));
 	}
 }

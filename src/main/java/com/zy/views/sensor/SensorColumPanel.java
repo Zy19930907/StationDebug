@@ -20,8 +20,8 @@ public class SensorColumPanel extends JPanel{
 		}
 	}
 	
-	public void upDateSensor(Sensor[] sensors,int page) {
+	public void upDateSensor(Sensor[] sensors) {
 		for(int i=0;i<4;i++)
-			sensorPanels[i].upDateSensor(sensors[(4*index)+i+(page*32)]);
+			sensorPanels[i].upDateSensor(sensors[(4*index)+i]);
 	}
 }
