@@ -25,6 +25,7 @@ public class SingleBoardCtrPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	JSlider slider = new JSlider();
 	JLabel volumlabel = new JLabel("  ");
+	JButton pause = new JButton("");
 	private SimpleDateFormat format = new SimpleDateFormat("SSS");
 	public SingleBoardCtrPanel() {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
@@ -37,10 +38,27 @@ public class SingleBoardCtrPanel extends JPanel {
 		JLabel label_1 = new JLabel("  ");
 		add(label_1);
 
-		JButton btnNewButton_1 = new JButton("");
-		btnNewButton_1.setIcon(new ImageIcon(SingleBoardCtrPanel.class.getResource("/com/zy/imgs/pause.png")));
-		btnNewButton_1.setAlignmentX(Component.CENTER_ALIGNMENT);
-		add(btnNewButton_1);
+
+		pause.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				byte[] cmd;
+				Sensor bSensor = App.singleBoardCastCtrView.getBoardcast();
+				if(pause.getText().equals("暂停播放")) {
+					cmd = App.cmdMaker.getPauseBoardCastMp3Cmd((byte) bSensor.getAddr(), (byte) 0x01);
+					pause.setToolTipText("继续播放");
+				}else
+				{
+					cmd = App.cmdMaker.getPauseBoardCastMp3Cmd((byte) bSensor.getAddr(), (byte) 0x00);
+					pause.setToolTipText("暂停播放");
+				}
+				App.singleBoardCastCtrView.SendBoardCastCmd(cmd);
+			}
+		});
+		pause.setIcon(new ImageIcon(SingleBoardCtrPanel.class.getResource("/com/zy/imgs/pause.png")));
+		pause.setAlignmentX(Component.CENTER_ALIGNMENT);
+		pause.setToolTipText("暂停播放");
+		add(pause);
 
 		JLabel label_2 = new JLabel("  ");
 		add(label_2);

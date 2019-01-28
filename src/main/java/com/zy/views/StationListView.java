@@ -45,6 +45,7 @@ public class StationListView extends JFrame {
 		table = new JTable();
 		table.setSurrendersFocusOnKeystroke(true);
 		table.getTableHeader().setFont(App.font);
+		table.getTableHeader().setDefaultRenderer(Rstyle);
 		table.setModel(devInfoModel);
 		table.setFont(App.font);
 		table.getColumnModel().getColumn(0).setMaxWidth(240);

@@ -693,7 +693,7 @@ public class CmdMaker {
 		cmd[i++] = (byte) 0xAA;
 		cmd[i++] = 0;
 		cmd[i++] = 0;
-		cmd[i++] = 0x07;
+		cmd[i++] = 0x08;
 		cmd[i++] = (byte) 128;
 		cmd[i++] = 0;
 		for(int j=0;j<8;j++) {
@@ -760,7 +760,29 @@ public class CmdMaker {
 		System.arraycopy(cmd, 0, out, 0, out.length);
 		return out;
 	}
-	
+
+	public byte[] getPauseBoardCastMp3Cmd(byte boardCastAddr,byte pause){
+		byte[] out = null;
+		i = 0;
+		cmd[i++] = 0x55;
+		cmd[i++] = (byte) 0xAA;
+		cmd[i++] = 0x55;
+		cmd[i++] = (byte) 0xAA;
+		cmd[i++] = 0;
+		cmd[i++] = 0;
+		cmd[i++] = 0x06;
+		cmd[i++] = 3;
+		cmd[i++] = 0;
+		cmd[i++] = boardCastAddr;
+		cmd[i++] = pause;
+		i+=2;
+		cmd[4] = (byte) (i & 0xFF);
+		cmd[5] = (byte) ((i>>8) & 0xFF);
+		crcMaker.setCrc(cmd, i);
+		out = new byte[i];
+		System.arraycopy(cmd, 0, out, 0, out.length);
+		return out;
+	}
 	public byte[] getExcuteInfoCmd() {
 		byte[] out = null;
 		for (i = 0; i < 4; i++)
@@ -781,4 +803,6 @@ public class CmdMaker {
 		System.arraycopy(cmd, 0, out, 0, out.length);
 		return out;
 	}
+
+
 }

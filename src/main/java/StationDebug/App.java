@@ -31,8 +31,8 @@ public class App {
     public static SubStationManger stationManger = new SubStationManger();
     public static UdpSender udpSender = new UdpSender();
     public static ConfigManager configManager = new ConfigManager();
-    public static final Font font = new Font("微软雅黑", Font.BOLD, 24);
-    public static final Font font16 = new Font("微软雅黑", Font.BOLD, 16);
+    public static final Font font = new Font("楷体", Font.BOLD, 24);
+    public static final Font font16 = new Font("楷体", Font.BOLD, 16);
     public static CmdMaker cmdMaker = new CmdMaker();
     public static CrcMaker crcMaker = new CrcMaker();
     public static TimeTaskScheduler taskScheduler;

@@ -40,6 +40,8 @@ public class ExcuteView extends JFrame {
 		table_1.setRowSelectionAllowed(false);
 		table_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table_1.setFont(App.font16);
+		table_1.getTableHeader().setFont(App.font16);
+		table_1.getTableHeader().setDefaultRenderer(r);
 		table_1.setDefaultRenderer(Object.class, r);
 		table_1.setModel(wornInfoModel);
 		int i=0;
@@ -47,12 +49,12 @@ public class ExcuteView extends JFrame {
 			table_1.setRowHeight(i, 36);
 			table_1.setValueAt(String.valueOf(i+1), i, 0);
 		}
-		table_1.getColumnModel().getColumn(0).setMaxWidth(50);
-		table_1.getColumnModel().getColumn(0).setMinWidth(50);
-		table_1.getColumnModel().getColumn(1).setMaxWidth(80);
-		table_1.getColumnModel().getColumn(1).setMinWidth(80);
-		table_1.getColumnModel().getColumn(2).setMaxWidth(80);
-		table_1.getColumnModel().getColumn(2).setMinWidth(80);
+		table_1.getColumnModel().getColumn(0).setMaxWidth(80);
+		table_1.getColumnModel().getColumn(0).setMinWidth(80);
+		table_1.getColumnModel().getColumn(1).setMaxWidth(120);
+		table_1.getColumnModel().getColumn(1).setMinWidth(120);
+		table_1.getColumnModel().getColumn(2).setMaxWidth(120);
+		table_1.getColumnModel().getColumn(2).setMinWidth(120);
 		table_1.getTableHeader().setFont(App.font16);
 		table_1.setFont(App.font);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
